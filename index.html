@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Here We Go 5 英文練習大本營</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fluent Font for Kids -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#FF6B8B',
+                            yellow: '#FFD166',
+                            green: '#06D6A0',
+                            blue: '#118AB2',
+                            darkBlue: '#073B4C',
+                            purple: '#A259FF',
+                            softBg: '#F7F9FC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Fredoka"', '"Noto Sans TC"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'fun': '0 8px 0 0 rgba(0, 0, 0, 0.1)',
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
+                        'pop': '0 12px 0 0 #073B4C',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+            background-color: #F4F8FA;
+            background-image: radial-gradient(#E2E8F0 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+        .card-bounce {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .card-bounce:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #EDF2F7;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E0;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #A0AEC0;
+        }
+    </style>
+</head>
+<body class="text-brand-darkBlue min-h-screen flex flex-col justify-between selection:bg-brand-yellow selection:text-brand-darkBlue">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b-4 border-brand-yellow shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
+                <div class="w-12 h-12 bg-gradient-to-tr from-brand-pink to-brand-yellow rounded-2xl flex items-center justify-center text-white text-2xl shadow-md transform -rotate-3 hover:rotate-0 transition-transform">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black tracking-wide text-brand-darkBlue flex items-center gap-2">
+                        HERE WE GO <span class="bg-brand-pink text-white text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold">Vol. 5</span>
+                    </h1>
+                    <p class="text-xs text-gray-500 font-medium">國小英文五上 Wordwall 互動學習大本營</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3 ml-auto">
+                <!-- Data Management Menu -->
+                <div class="relative inline-block text-left">
+                    <button id="manageDataBtn" onclick="toggleDataDropdown()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-3 py-2.5 rounded-xl text-sm transition flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-database text-brand-blue"></i>
+                        <span class="hidden sm:inline">備份/備忘</span>
+                        <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="dataDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border-2 border-gray-100 py-2 z-50">
+                        <button onclick="exportData()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-brand-softBg hover:text-brand-blue flex items-center gap-2 font-bold">
+                            <i class="fa-solid fa-file-export text-brand-green"></i> 匯出 JSON 資料
+                        </button>
+                        <button onclick="triggerImport()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-brand-softBg hover:text-brand-blue flex items-center gap-2 font-bold">
+                            <i class="fa-solid fa-file-import text-brand-purple"></i> 匯入 JSON 資料
+                        </button>
+                        <hr class="my-1 border-gray-100">
+                        <button onclick="confirmResetData()" class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-2 font-bold">
+                            <i class="fa-solid fa-rotate-left"></i> 重設為預設資料
+                        </button>
+                    </div>
+                </div>
+                <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
+
+                <!-- Add Resource Button -->
+                <button onclick="openAddModal()" class="bg-gradient-to-r from-brand-green to-teal-400 hover:from-teal-400 hover:to-brand-green text-white font-extrabold px-4 py-2.5 rounded-xl shadow-md hover:shadow-lg transition transform active:scale-95 flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-circle-plus text-base"></i>
+                    <span>新增練習資源</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+        
+        <!-- Welcome Hero Banner -->
+        <div class="relative overflow-hidden bg-gradient-to-r from-brand-blue via-indigo-600 to-brand-purple rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-8">
+            <div class="relative z-10 max-w-2xl">
+                <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider mb-3 inline-block">
+                    <i class="fa-solid fa-star text-brand-yellow mr-1"></i> Fun Learning Practice
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black mb-2 leading-tight">準備好挑戰了嗎？開啟你的 Wordwall 冒險！</h2>
+                <p class="text-blue-100 text-sm sm:text-base font-normal mb-6">點擊下方卡片即可在網頁內直接練習，或是完成練習後幫卡片打勾標記喔！</p>
+                
+                <!-- Quick Progress Dashboard -->
+                <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-3 inline-flex border border-white/20">
+                    <div class="text-center px-2">
+                        <p class="text-xs text-blue-200 font-medium">總練習卡片</p>
+                        <p id="totalCount" class="text-xl font-black">0</p>
+                    </div>
+                    <div class="h-8 w-px bg-white/20"></div>
+                    <div class="text-center px-2">
+                        <p class="text-xs text-blue-200 font-medium">已完成標記</p>
+                        <p id="completedCount" class="text-xl font-black text-brand-yellow">0</p>
+                    </div>
+                    <div class="h-8 w-px bg-white/20"></div>
+                    <div class="w-24 sm:w-32 bg-white/20 rounded-full h-3 relative overflow-hidden ml-1">
+                        <div id="progressBar" class="bg-brand-yellow h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Decorative Icons -->
+            <i class="fa-solid fa-rocket absolute -right-6 -bottom-6 text-9xl text-white/10 transform -rotate-12 pointer-events-none"></i>
+            <i class="fa-solid fa-trophy absolute right-32 top-6 text-7xl text-white/10 transform rotate-12 pointer-events-none hidden sm:block"></i>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+            
+            <!-- Unit Tabs -->
+            <div id="unitTabs" class="flex flex-wrap gap-2 w-full md:w-auto">
+                <!-- Dynamically generated unit buttons -->
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-72">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="搜尋單元或練習名稱..." 
+                    class="w-full pl-11 pr-4 py-2.5 bg-white border-2 border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition shadow-sm">
+            </div>
+        </div>
+
+        <!-- Resources Grid -->
+        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dynamically populated card items -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white rounded-3xl border-2 border-dashed border-gray-200 mt-4">
+            <div class="w-20 h-20 bg-brand-yellow/20 text-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                <i class="fa-solid fa-ghost"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-700 mb-1">找不到相關的練習資源</h3>
+            <p class="text-gray-400 text-sm mb-4">嘗試調整搜尋關鍵字，或是點擊上方按鈕新增資源吧！</p>
+            <button onclick="resetFilters()" class="px-4 py-2 bg-brand-blue text-white rounded-xl text-sm font-bold shadow hover:bg-blue-600 transition">
+                清除搜尋條件
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-12 text-center text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="mb-2">Here We Go 5 Wordwall Practice Hub &copy; 2026</p>
+            <p class="text-gray-400 font-light">本平台為練習資源整合學習介面，所有互動遊戲嵌入內容智慧財產權均屬 Wordwall 及原創作者所有。</p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: Embed Wordwall Game Practice -->
+    <div id="practiceModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6 transition-opacity">
+        <div class="bg-white w-full max-w-5xl h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border-4 border-brand-yellow animation-scale">
+            
+            <!-- Modal Header -->
+            <div class="bg-brand-softBg px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <span id="modalCategoryBadge" class="bg-brand-pink text-white text-xs px-3 py-1 rounded-full font-bold shrink-0">
+                        標籤
+                    </span>
+                    <h3 id="modalTitle" class="text-lg sm:text-xl font-black text-brand-darkBlue truncate">
+                        練習名稱
+                    </h3>
+                </div>
+                
+                <div class="flex items-center gap-2 shrink-0">
+                    <a id="modalExternalLink" href="#" target="_blank" title="在新分頁開啟" class="p-2 text-gray-500 hover:text-brand-blue hover:bg-white rounded-xl transition">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-lg"></i>
+                    </a>
+                    <button onclick="closePracticeModal()" class="p-2 text-gray-400 hover:text-red-500 hover:bg-white rounded-xl transition">
+                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content (Iframe container) -->
+            <div class="flex-grow bg-slate-100 relative">
+                <!-- Loading spinner -->
+                <div id="iframeLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-white z-10">
+                    <i class="fa-solid fa-spinner fa-spin text-4xl text-brand-blue mb-3"></i>
+                    <p class="text-sm text-gray-500 font-bold">Wordwall 遊戲載入中...</p>
+                </div>
+                <iframe id="wordwallIframe" class="w-full h-full border-0 relative z-20" allowfullscreen></iframe>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-white px-6 py-3 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info text-brand-blue"></i> 如果內嵌畫面無法顯示，可點擊右上角在新分頁開啟。</span>
+                <button onclick="closePracticeModal()" class="px-5 py-2 bg-brand-darkBlue text-white font-bold rounded-xl hover:bg-slate-800 transition">
+                    關閉練習
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Add / Edit Resource -->
+    <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-brand-green">
+            
+            <!-- Header -->
+            <div class="bg-brand-green p-5 text-white flex items-center justify-between">
+                <h3 class="text-xl font-black flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle"></i> 新增練習資源
+                </h3>
+                <button onclick="closeAddModal()" class="text-white/80 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form id="addResourceForm" onsubmit="handleAddResource(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">單元分類 (例如: U1 或 Unit 3)</label>
+                    <input type="text" id="formUnit" required placeholder="例如: U1" 
+                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">練習名稱</label>
+                    <input type="text" id="formTitle" required placeholder="例如: U1 聽音選字" 
+                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">類型標籤 (例如: 聽力/單字/配對)</label>
+                    <input type="text" id="formTag" required placeholder="例如: 聽力/字彙" 
+                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Wordwall 網址 (URL)</label>
+                    <input type="url" id="formUrl" required placeholder="https://wordwall.net/tc/resource/..." 
+                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                </div>
+
+                <!-- Submit & Cancel Buttons -->
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeAddModal()" class="w-1/2 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition text-sm">
+                        取消
+                    </button>
+                    <button type="submit" class="w-1/2 py-3 bg-brand-green hover:bg-teal-500 text-white font-extrabold rounded-xl shadow-md transition text-sm">
+                        確認新增
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-brand-darkBlue text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 z-50 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-brand-green text-lg"></i>
+        <span id="toastMsg" class="text-sm font-bold">訊息發送成功</span>
+    </div>
+
+    <!-- Application Core Script -->
+    <script>
+        // Default initial dataset (Here We Go 5: U1, U2, U3 & U4)
+        const DEFAULT_RESOURCES = [
+            // Unit 1
+            { id: 'u1-1', unit: 'U1', title: 'U1 聽音選字', tag: '聽力/字彙', url: 'https://wordwall.net/tc/resource/61030639?wwmethod=link', completed: false },
+            { id: 'u1-2', unit: 'U1', title: 'U1 單字配對', tag: '配對', url: 'https://wordwall.net/tc/resource/60234337?wwmethod=link', completed: false },
+            { id: 'u1-3', unit: 'U1', title: 'U1 聽音排字', tag: '聽力/拼字', url: 'https://wordwall.net/tc/resource/60648383?wwmethod=link', completed: false },
+            { id: 'u1-4', unit: 'U1', title: 'U1 聽懂意思', tag: '聽力理解', url: 'https://wordwall.net/tc/resource/60656592?wwmethod=link', completed: false },
+            { id: 'u1-5', unit: 'U1', title: 'U1 天氣播報', tag: '情境/句型', url: 'https://wordwall.net/tc/resource/33457766?wwmethod=link', completed: false },
+            
+            // Unit 2
+            { id: 'u2-1', unit: 'U2', title: 'U2 排列句子', tag: '句型重組', url: 'https://wordwall.net/tc/resource/78918902?wwmethod=link', completed: false },
+            { id: 'u2-2', unit: 'U2', title: 'U2 拼字遊戲', tag: '拼字', url: 'https://wordwall.net/tc/resource/85703324?wwmethod=link', completed: false },
+            { id: 'u2-3', unit: 'U2', title: 'U2 眼明手快', tag: '遊戲/反應', url: 'https://wordwall.net/tc/resource/56066174?wwmethod=link', completed: false },
+
+            // Unit 3
+            { id: 'u3-1', unit: 'U3', title: 'U3 看圖排單字', tag: '拼字/單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
+            { id: 'u3-2', unit: 'U3', title: 'U3 句型重組', tag: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
+            { id: 'u3-3', unit: 'U3', title: 'U3 句型練習', tag: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
+
+            // Unit 4
+            { id: 'u4-1', unit: 'U4', title: 'U4 綜合練習', tag: '綜合練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false }
+        ];
+
+        // Theme colors for tags
+<!-- ... existing code -->
