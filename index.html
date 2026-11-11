@@ -172,7 +172,7 @@
                 </div>
 
                 <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
-                    <h4 class="font-bold text-rose-700 text-sm mb-1">強制重設預設資料 (包含 U1-U4)</h4>
+                    <h4 class="font-bold text-rose-700 text-sm mb-1">強制重設預設資料 (包含最新 U1-U4)</h4>
                     <p class="text-xs text-rose-600/80 mb-3">若需要重設所有練習項目，點擊此按鈕即可還原。</p>
                     <button onclick="resetToDefaultData()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2">
                         <i class="fa-solid fa-rotate-left"></i> 重設預設資料
@@ -201,14 +201,18 @@
             { id: 'u3-1', unit: 'U3', title: '看圖排單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
             { id: 'u3-2', unit: 'U3', title: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
             { id: 'u3-3', unit: 'U3', title: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
+            { id: 'u3-4', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/62348835?wwmethod=link', completed: false },
 
             // Unit 4
             { id: 'u4-1', unit: 'U4', title: '拼字練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
             { id: 'u4-2', unit: 'U4', title: '看圖重組單字', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false },
-            
+            { id: 'u4-3', unit: 'U4', title: '單元練習 (3)', url: 'https://wordwall.net/tc/resource/65563634?wwmethod=link', completed: false },
+            { id: 'u4-4', unit: 'U4', title: '單字練習', url: 'https://wordwall.net/tc/resource/85702717?wwmethod=link', completed: false },
+            { id: 'u4-5', unit: 'U4', title: '迷宮追逐', url: 'https://wordwall.net/tc/resource/65436159?wwmethod=link', completed: false },
+            { id: 'u4-6', unit: 'U4', title: '問答遊戲', url: 'https://wordwall.net/tc/resource/65190817?wwmethod=link', completed: false }
         ];
 
-        const STORAGE_KEY = 'wordwall_here_we_go_5_v7';
+        const STORAGE_KEY = 'wordwall_here_we_go_5_v9';
 
         let resources = [];
         let currentActiveUnit = 'ALL';
@@ -252,7 +256,7 @@
         }
 
         function resetToDefaultData() {
-            if (confirm('確定要還原為包含 U1 至 U4 的最新預設資料嗎？')) {
+            if (confirm('確定要還原為包含最新預設資料嗎？')) {
                 resources = JSON.parse(JSON.stringify(DEFAULT_RESOURCES));
                 saveData();
                 renderUnitTabs();
@@ -467,7 +471,7 @@
                         alert('匯入的檔案格式不正確');
                     }
                 } catch (err) {
-                    alert('讀取檔案失敗：請確認職位標準 JSON 格式');
+                    alert('讀取檔案失敗：請確認是否為標準 JSON 格式');
                 }
             };
             reader.readAsText(file);
