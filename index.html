@@ -203,11 +203,12 @@
             { id: 'u3-3', unit: 'U3', title: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
 
             // Unit 4
-            { id: 'u4-1', unit: 'U4', title: '單元練習 (1)', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
-            { id: 'u4-2', unit: 'U4', title: '單元練習 (2)', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false }
+            { id: 'u4-1', unit: 'U4', title: '拼字練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
+            { id: 'u4-2', unit: 'U4', title: '看圖重組單字', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false },
+            { id: 'u4-3', unit: 'U4', title: '單元練習 (3)', url: 'https://wordwall.net/tc/resource/65563634?wwmethod=link', completed: false }
         ];
 
-        const STORAGE_KEY = 'wordwall_here_we_go_5_v5';
+        const STORAGE_KEY = 'wordwall_here_we_go_5_v7';
 
         let resources = [];
         let currentActiveUnit = 'ALL';
@@ -298,10 +299,7 @@
             const emptyState = document.getElementById('emptyState');
             const searchKeyword = document.getElementById('searchInput').value.trim().toLowerCase();
 
-            // 取得所有單元
             const allUnits = getUniqueUnits();
-
-            // 依據條件進行篩選
             const filteredUnits = allUnits.filter(unit => currentActiveUnit === 'ALL' || unit === currentActiveUnit);
 
             let hasAnyContent = false;
@@ -402,3 +400,78 @@
         }
 
         function handleAddResource(e) {
+            e.preventDefault();
+            const unit = document.getElementById('addUnit').value.trim();
+            const title = document.getElementById('addTitle').value.trim();
+            const url = document.getElementById('addUrl').value.trim();
+
+            if (!unit || !title || !url) return;
+
+            const newItem = {
+                id: 'custom-' + Date.now(),
+                unit: unit.toUpperCase(),
+                title: title,
+                url: url,
+                completed: false
+            };
+
+            resources.unshift(newItem);
+            saveData();
+            renderUnitTabs();
+            renderCards();
+
+            document.getElementById('addUnit').value = '';
+            document.getElementById('addTitle').value = '';
+            document.getElementById('addUrl').value = '';
+            closeModal('addModal');
+        }
+
+        function filterCards() {
+            renderCards();
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resources, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `HereWeGo5_Wordwall_Backup_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        resources = imported;
+                        saveData();
+                        renderUnitTabs();
+                        renderCards();
+                        alert('資料匯入成功！');
+                        closeModal('backupModal');
+                    } else {
+                        alert('匯入的檔案格式不正確');
+                    }
+                } catch (err) {
+                    alert('讀取檔案失敗：請確認職位標準 JSON 格式');
+                }
+            };
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
