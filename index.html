@@ -1,332 +1,539 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Here We Go 5 英文練習大本營</title>
+    <title>Here We Go 5 - Wordwall 英語學習資源庫</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Fluent Font for Kids -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <!-- FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
                     colors: {
                         brand: {
-                            pink: '#FF6B8B',
-                            yellow: '#FFD166',
-                            green: '#06D6A0',
-                            blue: '#118AB2',
-                            darkBlue: '#073B4C',
-                            purple: '#A259FF',
-                            softBg: '#F7F9FC'
+                            blue: '#4F46E5',
+                            lightBlue: '#EEF2FF',
+                            orange: '#FF8A00',
+                            yellow: '#FFD600',
+                            green: '#10B981',
+                            purple: '#8B5CF6',
+                            bg: '#F8FAFC'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['"Fredoka"', '"Noto Sans TC"', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'fun': '0 8px 0 0 rgba(0, 0, 0, 0.1)',
-                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
-                        'pop': '0 12px 0 0 #073B4C',
                     }
                 }
             }
         }
     </script>
     <style>
-        body {
-            font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
-            background-color: #F4F8FA;
-            background-image: radial-gradient(#E2E8F0 1.5px, transparent 1.5px);
-            background-size: 24px 24px;
+        .wood-border {
+            border: 4px solid #E2E8F0;
+            box-shadow: 0 10px 0 0 #CBD5E1;
         }
-        .card-bounce {
-            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .btn-push {
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 0 0 rgba(0,0,0,0.15);
         }
-        .card-bounce:hover {
-            transform: translateY(-8px) scale(1.02);
+        .btn-push:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 0 rgba(0,0,0,0.15);
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #EDF2F7;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #CBD5E0;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #A0AEC0;
+        .modal-blur {
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
-<body class="text-brand-darkBlue min-h-screen flex flex-col justify-between selection:bg-brand-yellow selection:text-brand-darkBlue">
+<body class="bg-slate-100 font-sans text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b-4 border-brand-yellow shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
-            
-            <!-- Logo & Title -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
-                <div class="w-12 h-12 bg-gradient-to-tr from-brand-pink to-brand-yellow rounded-2xl flex items-center justify-center text-white text-2xl shadow-md transform -rotate-3 hover:rotate-0 transition-transform">
-                    <i class="fa-solid fa-gamepad"></i>
+    <!-- 頂部 Header -->
+    <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white text-indigo-600 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl font-black shadow-inner">
+                    <i class="fa-solid fa-[#4F46E5] fa-gamepad"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-black tracking-wide text-brand-darkBlue flex items-center gap-2">
-                        HERE WE GO <span class="bg-brand-pink text-white text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold">Vol. 5</span>
-                    </h1>
-                    <p class="text-xs text-gray-500 font-medium">國小英文五上 Wordwall 互動學習大本營</p>
+                    <h1 class="text-2xl sm:text-3xl font-black tracking-wide font-fredoka">Here We Go 5</h1>
+                    <p class="text-xs sm:text-sm text-indigo-100 font-medium">Wordwall 互動練習資源庫</p>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-2 sm:gap-3 ml-auto">
-                <!-- Data Management Menu -->
-                <div class="relative inline-block text-left">
-                    <button id="manageDataBtn" onclick="toggleDataDropdown()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-3 py-2.5 rounded-xl text-sm transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-database text-brand-blue"></i>
-                        <span class="hidden sm:inline">備份/備忘</span>
-                        <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div id="dataDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border-2 border-gray-100 py-2 z-50">
-                        <button onclick="exportData()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-brand-softBg hover:text-brand-blue flex items-center gap-2 font-bold">
-                            <i class="fa-solid fa-file-export text-brand-green"></i> 匯出 JSON 資料
-                        </button>
-                        <button onclick="triggerImport()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-brand-softBg hover:text-brand-blue flex items-center gap-2 font-bold">
-                            <i class="fa-solid fa-file-import text-brand-purple"></i> 匯入 JSON 資料
-                        </button>
-                        <hr class="my-1 border-gray-100">
-                        <button onclick="confirmResetData()" class="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-2 font-bold">
-                            <i class="fa-solid fa-rotate-left"></i> 重設為預設資料
-                        </button>
-                    </div>
-                </div>
-                <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
-
-                <!-- Add Resource Button -->
-                <button onclick="openAddModal()" class="bg-gradient-to-r from-brand-green to-teal-400 hover:from-teal-400 hover:to-brand-green text-white font-extrabold px-4 py-2.5 rounded-xl shadow-md hover:shadow-lg transition transform active:scale-95 flex items-center gap-2 text-sm">
-                    <i class="fa-solid fa-circle-plus text-base"></i>
-                    <span>新增練習資源</span>
+            <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <button onclick="openModal('addModal')" class="bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold px-4 py-2 rounded-xl text-sm flex items-center gap-2 btn-push transition">
+                    <i class="fa-solid fa-plus text-base"></i>
+                    <span>新增資源</span>
+                </button>
+                <button onclick="openModal('backupModal')" class="bg-white/20 hover:bg-white/30 text-white font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1.5 backdrop-blur-md transition">
+                    <i class="fa-solid fa-[#ffffff] fa-sliders"></i>
+                    <span class="hidden sm:inline">管理與備份</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
-        
-        <!-- Welcome Hero Banner -->
-        <div class="relative overflow-hidden bg-gradient-to-r from-brand-blue via-indigo-600 to-brand-purple rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-8">
-            <div class="relative z-10 max-w-2xl">
-                <span class="bg-white/20 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider mb-3 inline-block">
-                    <i class="fa-solid fa-star text-brand-yellow mr-1"></i> Fun Learning Practice
-                </span>
-                <h2 class="text-2xl sm:text-4xl font-black mb-2 leading-tight">準備好挑戰了嗎？開啟你的 Wordwall 冒險！</h2>
-                <p class="text-blue-100 text-sm sm:text-base font-normal mb-6">點擊下方卡片即可在網頁內直接練習，或是完成練習後幫卡片打勾標記喔！</p>
-                
-                <!-- Quick Progress Dashboard -->
-                <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-3 inline-flex border border-white/20">
-                    <div class="text-center px-2">
-                        <p class="text-xs text-blue-200 font-medium">總練習卡片</p>
-                        <p id="totalCount" class="text-xl font-black">0</p>
-                    </div>
-                    <div class="h-8 w-px bg-white/20"></div>
-                    <div class="text-center px-2">
-                        <p class="text-xs text-blue-200 font-medium">已完成標記</p>
-                        <p id="completedCount" class="text-xl font-black text-brand-yellow">0</p>
-                    </div>
-                    <div class="h-8 w-px bg-white/20"></div>
-                    <div class="w-24 sm:w-32 bg-white/20 rounded-full h-3 relative overflow-hidden ml-1">
-                        <div id="progressBar" class="bg-brand-yellow h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
+    <!-- 主要內容區 -->
+    <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex-1 w-full">
+
+        <!-- 搜尋與單元篩選區 -->
+        <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-4">
+                <!-- 搜尋框 -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="searchInput" oninput="filterCards()" placeholder="搜尋練習名稱..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                </div>
+
+                <!-- 統計資訊 -->
+                <div class="text-xs sm:text-sm font-semibold text-slate-500 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 w-full md:w-auto text-center">
+                    總計 <span id="totalCount" class="text-indigo-600 font-bold">0</span> 個練習 | 已完成 <span id="completedCount" class="text-emerald-600 font-bold">0</span> 個
                 </div>
             </div>
 
-            <!-- Background Decorative Icons -->
-            <i class="fa-solid fa-rocket absolute -right-6 -bottom-6 text-9xl text-white/10 transform -rotate-12 pointer-events-none"></i>
-            <i class="fa-solid fa-trophy absolute right-32 top-6 text-7xl text-white/10 transform rotate-12 pointer-events-none hidden sm:block"></i>
-        </div>
-
-        <!-- Filter & Search Controls -->
-        <div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
-            
-            <!-- Unit Tabs -->
-            <div id="unitTabs" class="flex flex-wrap gap-2 w-full md:w-auto">
-                <!-- Dynamically generated unit buttons -->
-            </div>
-
-            <!-- Search Bar -->
-            <div class="relative w-full md:w-72">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="搜尋單元或練習名稱..." 
-                    class="w-full pl-11 pr-4 py-2.5 bg-white border-2 border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition shadow-sm">
+            <!-- 單元頁籤切換區 (動態產生) -->
+            <div id="unitTabs" class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+                <!-- 由 JS 動態生成按鈕 -->
             </div>
         </div>
 
-        <!-- Resources Grid -->
-        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Dynamically populated card items -->
+        <!-- 卡片展示區 -->
+        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 由 JS 動態生成練習卡片 -->
         </div>
 
-        <!-- Empty State -->
-        <div id="emptyState" class="hidden text-center py-16 bg-white rounded-3xl border-2 border-dashed border-gray-200 mt-4">
-            <div class="w-20 h-20 bg-brand-yellow/20 text-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-                <i class="fa-solid fa-ghost"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-700 mb-1">找不到相關的練習資源</h3>
-            <p class="text-gray-400 text-sm mb-4">嘗試調整搜尋關鍵字，或是點擊上方按鈕新增資源吧！</p>
-            <button onclick="resetFilters()" class="px-4 py-2 bg-brand-blue text-white rounded-xl text-sm font-bold shadow hover:bg-blue-600 transition">
-                清除搜尋條件
-            </button>
+        <!-- 空資料提示區 -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <i class="fa-solid fa-folder-open text-5xl text-slate-300 mb-4"></i>
+            <h3 class="text-lg font-bold text-slate-600">找不到相關的練習資源</h3>
+            <p class="text-slate-400 text-sm mt-1">請嘗試變更搜尋關鍵字或選擇其他單元頁籤</p>
         </div>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-6 mt-12 text-center text-xs text-gray-400">
-        <div class="max-w-7xl mx-auto px-4">
-            <p class="mb-2">Here We Go 5 Wordwall Practice Hub &copy; 2026</p>
-            <p class="text-gray-400 font-light">本平台為練習資源整合學習介面，所有互動遊戲嵌入內容智慧財產權均屬 Wordwall 及原創作者所有。</p>
-        </div>
+    <!-- 頁尾 -->
+    <footer class="bg-slate-800 text-slate-400 py-6 text-center text-xs sm:text-sm mt-8 border-t border-slate-700">
+        <p>Here We Go 5 Wordwall Practice Hub &copy; 2026</p>
     </footer>
 
-    <!-- MODAL 1: Embed Wordwall Game Practice -->
-    <div id="practiceModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6 transition-opacity">
-        <div class="bg-white w-full max-w-5xl h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border-4 border-brand-yellow animation-scale">
-            
-            <!-- Modal Header -->
-            <div class="bg-brand-softBg px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <span id="modalCategoryBadge" class="bg-brand-pink text-white text-xs px-3 py-1 rounded-full font-bold shrink-0">
-                        標籤
-                    </span>
-                    <h3 id="modalTitle" class="text-lg sm:text-xl font-black text-brand-darkBlue truncate">
-                        練習名稱
-                    </h3>
+    <!-- Modal 1: 遊戲 Embed 練習彈出視窗 -->
+    <div id="gameModal" class="fixed inset-0 bg-slate-900/80 modal-blur z-50 hidden flex flex-col justify-center items-center p-2 sm:p-4">
+        <div class="bg-white rounded-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-700">
+            <!-- Embed Header -->
+            <div class="bg-slate-800 text-white px-4 py-3 flex justify-between items-center border-b border-slate-700">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <span id="gameModalUnit" class="bg-indigo-500 text-white font-bold text-xs px-2.5 py-1 rounded-lg shrink-0">U1</span>
+                    <h3 id="gameModalTitle" class="font-bold text-base sm:text-lg truncate">遊戲練習</h3>
                 </div>
-                
                 <div class="flex items-center gap-2 shrink-0">
-                    <a id="modalExternalLink" href="#" target="_blank" title="在新分頁開啟" class="p-2 text-gray-500 hover:text-brand-blue hover:bg-white rounded-xl transition">
-                        <i class="fa-solid fa-arrow-up-right-from-square text-lg"></i>
+                    <a id="gameModalExternalLink" href="#" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1">
+                        <i class="fa-solid fa-up-right-from-square"></i>
+                        <span class="hidden sm:inline">新頁開啓</span>
                     </a>
-                    <button onclick="closePracticeModal()" class="p-2 text-gray-400 hover:text-red-500 hover:bg-white rounded-xl transition">
-                        <i class="fa-solid fa-xmark text-2xl"></i>
+                    <button onclick="closeModal('gameModal')" class="text-slate-400 hover:text-white text-xl w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-700 transition">
+                        <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             </div>
-
-            <!-- Modal Content (Iframe container) -->
-            <div class="flex-grow bg-slate-100 relative">
-                <!-- Loading spinner -->
-                <div id="iframeLoader" class="absolute inset-0 flex flex-col items-center justify-center bg-white z-10">
-                    <i class="fa-solid fa-spinner fa-spin text-4xl text-brand-blue mb-3"></i>
-                    <p class="text-sm text-gray-500 font-bold">Wordwall 遊戲載入中...</p>
-                </div>
-                <iframe id="wordwallIframe" class="w-full h-full border-0 relative z-20" allowfullscreen></iframe>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="bg-white px-6 py-3 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
-                <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-info text-brand-blue"></i> 如果內嵌畫面無法顯示，可點擊右上角在新分頁開啟。</span>
-                <button onclick="closePracticeModal()" class="px-5 py-2 bg-brand-darkBlue text-white font-bold rounded-xl hover:bg-slate-800 transition">
-                    關閉練習
-                </button>
+            <!-- Embed Iframe Container -->
+            <div class="flex-1 bg-slate-900 relative">
+                <iframe id="gameIframe" src="" class="w-full h-full border-0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 2: Add / Edit Resource -->
-    <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-brand-green">
-            
-            <!-- Header -->
-            <div class="bg-brand-green p-5 text-white flex items-center justify-between">
-                <h3 class="text-xl font-black flex items-center gap-2">
-                    <i class="fa-solid fa-plus-circle"></i> 新增練習資源
+    <!-- Modal 2: 新增練習資源 -->
+    <div id="addModal" class="fixed inset-0 bg-slate-900/60 modal-blur z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-100">
+            <div class="bg-indigo-600 text-white px-6 py-4 flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-square-plus"></i>
+                    <span>新增 Wordwall 資源</span>
                 </h3>
-                <button onclick="closeAddModal()" class="text-white/80 hover:text-white text-xl">
+                <button onclick="closeModal('addModal')" class="text-indigo-200 hover:text-white text-xl">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-
-            <!-- Form -->
-            <form id="addResourceForm" onsubmit="handleAddResource(event)" class="p-6 space-y-4">
+            <form onsubmit="handleAddResource(event)" class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">單元分類 (例如: U1 或 Unit 3)</label>
-                    <input type="text" id="formUnit" required placeholder="例如: U1" 
-                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                    <label class="block text-sm font-bold text-slate-700 mb-1">所屬單元 *</label>
+                    <input type="text" id="addUnit" placeholder="例：U5 或 Unit 5" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                 </div>
-
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">練習名稱</label>
-                    <input type="text" id="formTitle" required placeholder="例如: U1 聽音選字" 
-                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                    <label class="block text-sm font-bold text-slate-700 mb-1">練習標題 *</label>
+                    <input type="text" id="addTitle" placeholder="例：聽音選字" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                 </div>
-
                 <div>
-                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">類型標籤 (例如: 聽力/單字/配對)</label>
-                    <input type="text" id="formTag" required placeholder="例如: 聽力/字彙" 
-                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Wordwall 網址 *</label>
+                    <input type="url" id="addUrl" placeholder="https://wordwall.net/tc/resource/..." required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                 </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Wordwall 網址 (URL)</label>
-                    <input type="url" id="formUrl" required placeholder="https://wordwall.net/tc/resource/..." 
-                        class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm font-bold focus:outline-none focus:border-brand-green focus:bg-white transition">
-                </div>
-
-                <!-- Submit & Cancel Buttons -->
-                <div class="flex gap-3 pt-4">
-                    <button type="button" onclick="closeAddModal()" class="w-1/2 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition text-sm">
-                        取消
-                    </button>
-                    <button type="submit" class="w-1/2 py-3 bg-brand-green hover:bg-teal-500 text-white font-extrabold rounded-xl shadow-md transition text-sm">
-                        確認新增
-                    </button>
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal('addModal')" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm hover:bg-slate-50">取消</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700 shadow-md">儲存新增</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Floating Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-brand-darkBlue text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 z-50 transform translate-y-20 opacity-0 transition-all duration-300">
-        <i id="toastIcon" class="fa-solid fa-circle-check text-brand-green text-lg"></i>
-        <span id="toastMsg" class="text-sm font-bold">訊息發送成功</span>
+    <!-- Modal 3: 管理與備份選單 -->
+    <div id="backupModal" class="fixed inset-0 bg-slate-900/60 modal-blur z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl border border-slate-100">
+            <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>資料管理與備份</span>
+                </h3>
+                <button onclick="closeModal('backupModal')" class="text-slate-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-700 text-sm mb-1">匯出資料 JSON</h4>
+                    <p class="text-xs text-slate-500 mb-3">將現有的課程資源與勾選紀錄下載備份。</p>
+                    <button onclick="exportData()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i> 匯出 JSON 備份檔
+                    </button>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-700 text-sm mb-1">匯入資料 JSON</h4>
+                    <p class="text-xs text-slate-500 mb-3">選擇備份檔案以覆蓋現有資源清單。</p>
+                    <input type="file" id="importFile" accept=".json" class="hidden" onchange="importData(event)">
+                    <button onclick="document.getElementById('importFile').click()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i class="fa-solid fa-upload"></i> 選擇 JSON 檔案匯入
+                    </button>
+                </div>
+
+                <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
+                    <h4 class="font-bold text-rose-700 text-sm mb-1">重設為預設資料 (包含 U1-U4)</h4>
+                    <p class="text-xs text-rose-600/80 mb-3">若網頁未出現最新的 U3 或 U4 卡片，點擊此按鈕即可一鍵還原至最新完整清單。</p>
+                    <button onclick="resetToDefaultData()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-left"></i> 強制重設預設資料
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Application Core Script -->
+    <!-- JavaScript 核心邏輯 -->
     <script>
-        // Default initial dataset (Here We Go 5: U1, U2, U3 & U4)
+        // 最新預設資料 (包含 U1 ~ U4 完整內容)
         const DEFAULT_RESOURCES = [
             // Unit 1
-            { id: 'u1-1', unit: 'U1', title: 'U1 聽音選字', tag: '聽力/字彙', url: 'https://wordwall.net/tc/resource/61030639?wwmethod=link', completed: false },
-            { id: 'u1-2', unit: 'U1', title: 'U1 單字配對', tag: '配對', url: 'https://wordwall.net/tc/resource/60234337?wwmethod=link', completed: false },
-            { id: 'u1-3', unit: 'U1', title: 'U1 聽音排字', tag: '聽力/拼字', url: 'https://wordwall.net/tc/resource/60648383?wwmethod=link', completed: false },
-            { id: 'u1-4', unit: 'U1', title: 'U1 聽懂意思', tag: '聽力理解', url: 'https://wordwall.net/tc/resource/60656592?wwmethod=link', completed: false },
-            { id: 'u1-5', unit: 'U1', title: 'U1 天氣播報', tag: '情境/句型', url: 'https://wordwall.net/tc/resource/33457766?wwmethod=link', completed: false },
-            
+            { id: 'u1-1', unit: 'U1', title: '聽音選字', url: 'https://wordwall.net/tc/resource/61030639?wwmethod=link', completed: false },
+            { id: 'u1-2', unit: 'U1', title: '單字配對', url: 'https://wordwall.net/tc/resource/60234337?wwmethod=link', completed: false },
+            { id: 'u1-3', unit: 'U1', title: '聽音排字', url: 'https://wordwall.net/tc/resource/60648383?wwmethod=link', completed: false },
+            { id: 'u1-4', unit: 'U1', title: '聽懂意思', url: 'https://wordwall.net/tc/resource/60656592?wwmethod=link', completed: false },
+            { id: 'u1-5', unit: 'U1', title: '天氣播報', url: 'https://wordwall.net/tc/resource/33457766?wwmethod=link', completed: false },
+
             // Unit 2
-            { id: 'u2-1', unit: 'U2', title: 'U2 排列句子', tag: '句型重組', url: 'https://wordwall.net/tc/resource/78918902?wwmethod=link', completed: false },
-            { id: 'u2-2', unit: 'U2', title: 'U2 拼字遊戲', tag: '拼字', url: 'https://wordwall.net/tc/resource/85703324?wwmethod=link', completed: false },
-            { id: 'u2-3', unit: 'U2', title: 'U2 眼明手快', tag: '遊戲/反應', url: 'https://wordwall.net/tc/resource/56066174?wwmethod=link', completed: false },
+            { id: 'u2-1', unit: 'U2', title: '排列句子', url: 'https://wordwall.net/tc/resource/78918902?wwmethod=link', completed: false },
+            { id: 'u2-2', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/85703324?wwmethod=link', completed: false },
+            { id: 'u2-3', unit: 'U2', title: '眼明手快', url: 'https://wordwall.net/tc/resource/56066174?wwmethod=link', completed: false },
 
             // Unit 3
-            { id: 'u3-1', unit: 'U3', title: 'U3 看圖排單字', tag: '拼字/單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
-            { id: 'u3-2', unit: 'U3', title: 'U3 句型重組', tag: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
-            { id: 'u3-3', unit: 'U3', title: 'U3 句型練習', tag: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
+            { id: 'u3-1', unit: 'U3', title: '看圖排單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
+            { id: 'u3-2', unit: 'U3', title: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
+            { id: 'u3-3', unit: 'U3', title: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
 
             // Unit 4
-            { id: 'u4-1', unit: 'U4', title: 'U4 綜合練習', tag: '綜合練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false }
+            { id: 'u4-1', unit: 'U4', title: '單元練習 (1)', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
+            { id: 'u4-2', unit: 'U4', title: '單元練習 (2)', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false }
         ];
 
-        // Theme colors for tags
-<!-- ... existing code -->
+        const STORAGE_KEY = 'wordwall_here_we_go_5_v2';
+
+        let resources = [];
+        let currentActiveUnit = 'ALL';
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            renderUnitTabs();
+            renderCards();
+        });
+
+        // 讀取 LocalStorage 資料並具備自動補全缺失資源功能
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // 檢查預設項目是否都存在，若缺失則自動補全 (自動升級舊資料結構)
+                    const existingIds = new Set(parsed.map(item => item.id));
+                    let hasMissing = false;
+
+                    DEFAULT_RESOURCES.forEach(defItem => {
+                        if (!existingIds.has(defItem.id)) {
+                            parsed.push({...defItem});
+                            hasMissing = true;
+                        }
+                    });
+
+                    resources = parsed;
+                    if (hasMissing) saveData();
+                } catch(e) {
+                    resources = [...DEFAULT_RESOURCES];
+                    saveData();
+                }
+            } else {
+                resources = JSON.parse(JSON.stringify(DEFAULT_RESOURCES));
+                saveData();
+            }
+        }
+
+        // 儲存至 LocalStorage
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(resources));
+            updateCounters();
+        }
+
+        // 重設為預設資料
+        function resetToDefaultData() {
+            if (confirm('確定要還原為包含 U1 至 U4 的最新預設資料嗎？這將重新整理卡片。')) {
+                resources = JSON.parse(JSON.stringify(DEFAULT_RESOURCES));
+                saveData();
+                renderUnitTabs();
+                renderCards();
+                closeModal('backupModal');
+            }
+        }
+
+        // 取得所有唯一單元
+        function getUniqueUnits() {
+            const units = Array.from(new Set(resources.map(r => r.unit)));
+            return units.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+        }
+
+        // 渲染單元切換頁籤
+        function renderUnitTabs() {
+            const tabsContainer = document.getElementById('unitTabs');
+            const units = getUniqueUnits();
+
+            let html = `
+                <button onclick="switchUnit('ALL')" class="px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition ${currentActiveUnit === 'ALL' ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                    全部顯示
+                </button>
+            `;
+
+            units.forEach(unit => {
+                const isActive = currentActiveUnit === unit;
+                html += `
+                    <button onclick="switchUnit('${unit}')" class="px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition ${isActive ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                        ${unit}
+                    </button>
+                `;
+            });
+
+            tabsContainer.innerHTML = html;
+        }
+
+        // 切換單元頁籤
+        function switchUnit(unit) {
+            currentActiveUnit = unit;
+            renderUnitTabs();
+            renderCards();
+        }
+
+        // 渲染練習卡片
+        function renderCards() {
+            const grid = document.getElementById('cardsGrid');
+            const emptyState = document.getElementById('emptyState');
+            const searchKeyword = document.getElementById('searchInput').value.trim().toLowerCase();
+
+            // 篩選
+            const filtered = resources.filter(item => {
+                const matchUnit = currentActiveUnit === 'ALL' || item.unit === currentActiveUnit;
+                const matchSearch = item.title.toLowerCase().includes(searchKeyword) || item.unit.toLowerCase().includes(searchKeyword);
+                return matchUnit && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                updateCounters();
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            // 構建卡片 HTML
+            grid.innerHTML = filtered.map(item => {
+                const embedUrl = convertToEmbedUrl(item.url);
+                return `
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group ${item.completed ? 'bg-emerald-50/40 border-emerald-200' : ''}">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start gap-2 mb-3">
+                                <span class="bg-indigo-100 text-indigo-700 font-black text-xs px-3 py-1 rounded-lg">
+                                    ${item.unit}
+                                </span>
+                                <label class="flex items-center gap-1.5 cursor-pointer select-none text-xs text-slate-500 hover:text-slate-700">
+                                    <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleComplete('${item.id}')" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    <span>${item.completed ? '已完成' : '未完成'}</span>
+                                </label>
+                            </div>
+
+                            <h3 class="font-bold text-slate-800 text-base sm:text-lg group-hover:text-indigo-600 transition mb-2">
+                                ${item.title}
+                            </h3>
+                            <p class="text-xs text-slate-400 truncate">
+                                <i class="fa-solid fa-link text-slate-300 mr-1"></i>${item.url}
+                            </p>
+                        </div>
+
+                        <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <button onclick="playGame('${item.unit}', '${item.title}', '${embedUrl}', '${item.url}')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 btn-push transition">
+                                <i class="fa-solid fa-circle-play"></i>
+                                <span>立即練習</span>
+                            </button>
+                            <button onclick="deleteResource('${item.id}')" class="text-slate-400 hover:text-rose-500 p-2 rounded-lg transition" title="刪除此練習">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateCounters();
+        }
+
+        // 更新統計計數器
+        function updateCounters() {
+            document.getElementById('totalCount').innerText = resources.length;
+            document.getElementById('completedCount').innerText = resources.filter(r => r.completed).length;
+        }
+
+        // 切換完成狀態
+        function toggleComplete(id) {
+            const item = resources.find(r => r.id === id);
+            if (item) {
+                item.completed = !item.completed;
+                saveData();
+                renderCards();
+            }
+        }
+
+        // Wordwall 一般網址轉 Embed Iframe 網址
+        function convertToEmbedUrl(url) {
+            if (!url) return '';
+            // 處理含 query parameter 的 Wordwall 網址
+            let cleanUrl = url.split('?')[0];
+            cleanUrl = cleanUrl.replace(/\/play\//, '/resource/');
+            if (!cleanUrl.endsWith('/embed')) {
+                cleanUrl += '/embed';
+            }
+            return cleanUrl;
+        }
+
+        // 播放遊戲彈窗
+        function playGame(unit, title, embedUrl, rawUrl) {
+            document.getElementById('gameModalUnit').innerText = unit;
+            document.getElementById('gameModalTitle').innerText = title;
+            document.getElementById('gameIframe').src = embedUrl;
+            document.getElementById('gameModalExternalLink').href = rawUrl;
+            openModal('gameModal');
+        }
+
+        // 新增練習資源
+        function handleAddResource(e) {
+            e.preventDefault();
+            const unit = document.getElementById('addUnit').value.trim();
+            const title = document.getElementById('addTitle').value.trim();
+            const url = document.getElementById('addUrl').value.trim();
+
+            if (!unit || !title || !url) return;
+
+            const newItem = {
+                id: 'custom-' + Date.now(),
+                unit: unit.toUpperCase(),
+                title: title,
+                url: url,
+                completed: false
+            };
+
+            resources.unshift(newItem);
+            saveData();
+            renderUnitTabs();
+            renderCards();
+
+            // Reset form
+            document.getElementById('addUnit').value = '';
+            document.getElementById('addTitle').value = '';
+            document.getElementById('addUrl').value = '';
+            closeModal('addModal');
+        }
+
+        // 刪除資源
+        function deleteResource(id) {
+            if (confirm('確定要刪除這個練習資源嗎？')) {
+                resources = resources.filter(r => r.id !== id);
+                saveData();
+                renderUnitTabs();
+                renderCards();
+            }
+        }
+
+        // 關鍵字搜尋過濾
+        function filterCards() {
+            renderCards();
+        }
+
+        // 通用 Modal 控制
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            if (id === 'gameModal') {
+                document.getElementById('gameIframe').src = ''; // 停止背景音效
+            }
+        }
+
+        // 匯出 JSON 資料
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resources, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `HereWeGo5_Wordwall_Backup_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        // 匯入 JSON 資料
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        resources = imported;
+                        saveData();
+                        renderUnitTabs();
+                        renderCards();
+                        alert('資料匯入成功！');
+                        closeModal('backupModal');
+                    } else {
+                        alert('匯入的檔案格式不正確');
+                    }
+                } catch (err) {
+                    alert('讀取檔案失敗：請確認是否為標準 JSON 格式');
+                }
+            };
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
