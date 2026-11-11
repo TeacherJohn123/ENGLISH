@@ -89,9 +89,9 @@
             </div>
         </div>
 
-        <!-- 卡片展示區 -->
-        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 由 JS 動態生成練習卡片 -->
+        <!-- 按單元分類展示區 -->
+        <div id="unitSectionsContainer" class="space-y-8">
+            <!-- 由 JS 動態生成單元區塊與卡片 -->
         </div>
 
         <!-- 空資料提示區 -->
@@ -108,7 +108,7 @@
         <p>Here We Go 5 Wordwall Practice Hub &copy; 2026</p>
     </footer>
 
-    <!-- Modal 2: 新增練習資源 -->
+    <!-- Modal: 新增練習資源 -->
     <div id="addModal" class="fixed inset-0 bg-slate-900/60 modal-blur z-50 hidden flex justify-center items-center p-4">
         <div class="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-100">
             <div class="bg-indigo-600 text-white px-6 py-4 flex justify-between items-center">
@@ -141,7 +141,7 @@
         </div>
     </div>
 
-    <!-- Modal 3: 管理與備份選單 -->
+    <!-- Modal: 管理與備份選單 -->
     <div id="backupModal" class="fixed inset-0 bg-slate-900/60 modal-blur z-50 hidden flex justify-center items-center p-4">
         <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl border border-slate-100">
             <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
@@ -207,7 +207,7 @@
             { id: 'u4-2', unit: 'U4', title: '單元練習 (2)', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false }
         ];
 
-        const STORAGE_KEY = 'wordwall_here_we_go_5_v3';
+        const STORAGE_KEY = 'wordwall_here_we_go_5_v5';
 
         let resources = [];
         let currentActiveUnit = 'ALL';
@@ -294,61 +294,97 @@
         }
 
         function renderCards() {
-            const grid = document.getElementById('cardsGrid');
+            const container = document.getElementById('unitSectionsContainer');
             const emptyState = document.getElementById('emptyState');
             const searchKeyword = document.getElementById('searchInput').value.trim().toLowerCase();
 
-            const filtered = resources.filter(item => {
-                const matchUnit = currentActiveUnit === 'ALL' || item.unit === currentActiveUnit;
-                const matchSearch = item.title.toLowerCase().includes(searchKeyword) || item.unit.toLowerCase().includes(searchKeyword);
-                return matchUnit && matchSearch;
-            });
+            // 取得所有單元
+            const allUnits = getUniqueUnits();
 
-            if (filtered.length === 0) {
-                grid.innerHTML = '';
-                emptyState.classList.remove('hidden');
-                updateCounters();
-                return;
-            }
+            // 依據條件進行篩選
+            const filteredUnits = allUnits.filter(unit => currentActiveUnit === 'ALL' || unit === currentActiveUnit);
 
-            emptyState.classList.add('hidden');
+            let hasAnyContent = false;
+            let sectionsHtml = '';
 
-            grid.innerHTML = filtered.map(item => {
-                return `
-                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group ${item.completed ? 'bg-emerald-50/40 border-emerald-200' : ''}">
-                        <div class="p-5">
-                            <div class="flex justify-between items-start gap-2 mb-3">
-                                <span class="bg-indigo-100 text-indigo-700 font-black text-xs px-3 py-1 rounded-lg">
-                                    ${item.unit}
-                                </span>
-                                <label class="flex items-center gap-1.5 cursor-pointer select-none text-xs text-slate-500 hover:text-slate-700">
-                                    <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleComplete('${item.id}')" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                                    <span>${item.completed ? '已完成' : '未完成'}</span>
-                                </label>
+            filteredUnits.forEach(unit => {
+                const unitItems = resources.filter(item => {
+                    const matchUnit = item.unit === unit;
+                    const matchSearch = item.title.toLowerCase().includes(searchKeyword) || item.unit.toLowerCase().includes(searchKeyword);
+                    return matchUnit && matchSearch;
+                });
+
+                if (unitItems.length > 0) {
+                    hasAnyContent = true;
+                    
+                    const cardsHtml = unitItems.map(item => `
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group ${item.completed ? 'bg-emerald-50/40 border-emerald-200' : ''}">
+                            <div class="p-5">
+                                <div class="flex justify-between items-start gap-2 mb-3">
+                                    <span class="bg-indigo-100 text-indigo-700 font-black text-xs px-3 py-1 rounded-lg">
+                                        ${item.unit}
+                                    </span>
+                                    <label class="flex items-center gap-1.5 cursor-pointer select-none text-xs text-slate-500 hover:text-slate-700">
+                                        <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleComplete('${item.id}')" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                        <span>${item.completed ? '已完成' : '未完成'}</span>
+                                    </label>
+                                </div>
+
+                                <h3 class="font-bold text-slate-800 text-base sm:text-lg group-hover:text-indigo-600 transition mb-2">
+                                    ${item.title}
+                                </h3>
+                                <p class="text-xs text-slate-400 truncate">
+                                    <i class="fa-solid fa-link text-slate-300 mr-1"></i>${item.url}
+                                </p>
                             </div>
 
-                            <h3 class="font-bold text-slate-800 text-base sm:text-lg group-hover:text-indigo-600 transition mb-2">
-                                ${item.title}
-                            </h3>
-                            <p class="text-xs text-slate-400 truncate">
-                                <i class="fa-solid fa-link text-slate-300 mr-1"></i>${item.url}
-                            </p>
+                            <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center">
+                                <a href="${item.url}" target="_blank" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 btn-push transition">
+                                    <i class="fa-solid fa-circle-play"></i>
+                                    <span>立即練習 (新分頁)</span>
+                                </a>
+                            </div>
                         </div>
+                    `).join('');
 
-                        <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
-                            <a href="${item.url}" target="_blank" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 btn-push transition">
-                                <i class="fa-solid fa-circle-play"></i>
-                                <span>立即練習 (新分頁)</span>
-                            </a>
-                            <button onclick="deleteResource('${item.id}')" class="text-slate-400 hover:text-rose-500 p-2 rounded-lg transition" title="刪除此練習">
-                                <i class="fa-solid fa-trash-can text-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                    sectionsHtml += `
+                        <section class="bg-slate-50/60 p-5 sm:p-6 rounded-3xl border border-slate-200/80">
+                            <div class="flex items-center gap-3 mb-4 pb-2 border-b border-slate-200">
+                                <div class="bg-indigo-600 text-white px-4 py-1.5 rounded-xl font-black text-base tracking-wide shadow-sm">
+                                    ${unit}
+                                </div>
+                                <h2 class="font-bold text-slate-700 text-lg sm:text-xl">
+                                    ${getUnitDisplayName(unit)} 練習資源
+                                </h2>
+                                <span class="text-xs text-slate-400 font-medium">(${unitItems.length} 個項目)</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                ${cardsHtml}
+                            </div>
+                        </section>
+                    `;
+                }
+            });
+
+            if (!hasAnyContent) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                container.innerHTML = sectionsHtml;
+            }
 
             updateCounters();
+        }
+
+        function getUnitDisplayName(unit) {
+            switch(unit.toUpperCase()) {
+                case 'U1': return 'Unit 1';
+                case 'U2': return 'Unit 2';
+                case 'U3': return 'Unit 3';
+                case 'U4': return 'Unit 4';
+                default: return unit;
+            }
         }
 
         function updateCounters() {
@@ -366,87 +402,3 @@
         }
 
         function handleAddResource(e) {
-            e.preventDefault();
-            const unit = document.getElementById('addUnit').value.trim();
-            const title = document.getElementById('addTitle').value.trim();
-            const url = document.getElementById('addUrl').value.trim();
-
-            if (!unit || !title || !url) return;
-
-            const newItem = {
-                id: 'custom-' + Date.now(),
-                unit: unit.toUpperCase(),
-                title: title,
-                url: url,
-                completed: false
-            };
-
-            resources.unshift(newItem);
-            saveData();
-            renderUnitTabs();
-            renderCards();
-
-            document.getElementById('addUnit').value = '';
-            document.getElementById('addTitle').value = '';
-            document.getElementById('addUrl').value = '';
-            closeModal('addModal');
-        }
-
-        function deleteResource(id) {
-            if (confirm('確定要刪除這個練習資源嗎？')) {
-                resources = resources.filter(r => r.id !== id);
-                saveData();
-                renderUnitTabs();
-                renderCards();
-            }
-        }
-
-        function filterCards() {
-            renderCards();
-        }
-
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        function exportData() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resources, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `HereWeGo5_Wordwall_Backup_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    if (Array.isArray(imported)) {
-                        resources = imported;
-                        saveData();
-                        renderUnitTabs();
-                        renderCards();
-                        alert('資料匯入成功！');
-                        closeModal('backupModal');
-                    } else {
-                        alert('匯入的檔案格式不正確');
-                    }
-                } catch (err) {
-                    alert('讀取檔案失敗：請確認是否為標準 JSON 格式');
-                }
-            };
-            reader.readAsText(file);
-        }
-    </script>
-</body>
-</html>
