@@ -137,7 +137,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">所屬單元 *</label>
-                    <input type="text" id="addUnit" placeholder="例：U1 或 Unit 1" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                    <input type="text" id="addUnit" placeholder="例：U1 或 REVIEW2" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">練習標題 *</label>
@@ -286,7 +286,7 @@
             { id: 'hw8-rev2-1', book: 'Here We Go 8 (六下)', unit: 'REVIEW2', title: '配對王', url: 'https://wordwall.net/resource/82618427?wwmethod=link', completed: false }
         ];
 
-        const STORAGE_KEY = 'wordwall_here_we_go_multi_v3';
+        const STORAGE_KEY = 'wordwall_here_we_go_multi_v4';
 
         let resources = [];
         let currentActiveBook = 'Here We Go 5 (五上)';
@@ -368,10 +368,17 @@
             renderCards();
         }
 
+        // 取得單元並確保 REVIEW 開頭的項目排在最後面
         function getUniqueUnitsForCurrentBook() {
             const bookItems = resources.filter(r => r.book === currentActiveBook);
             const units = Array.from(new Set(bookItems.map(r => r.unit)));
-            return units.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+            return units.sort((a, b) => {
+                const isAReview = a.toUpperCase().startsWith('REVIEW');
+                const isBReview = b.toUpperCase().startsWith('REVIEW');
+                if (isAReview && !isBReview) return 1;
+                if (!isAReview && isBReview) return -1;
+                return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+            });
         }
 
         function renderUnitTabs() {
@@ -408,7 +415,7 @@
             const searchKeyword = document.getElementById('searchInput').value.trim().toLowerCase();
 
             const bookItems = resources.filter(r => r.book === currentActiveBook);
-            const allUnits = Array.from(new Set(bookItems.map(r => r.unit))).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+            const allUnits = getUniqueUnitsForCurrentBook();
             const filteredUnits = allUnits.filter(unit => currentActiveUnit === 'ALL' || unit === currentActiveUnit);
 
             let hasAnyContent = false;
