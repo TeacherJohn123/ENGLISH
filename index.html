@@ -129,10 +129,10 @@
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">所屬冊別 *</label>
                     <select id="addBook" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white">
-                        <option value="Here We Go 6 (五上)">Here We Go 6 (五上)</option>
-                        <option value="Here We Go 7 (五下)">Here We Go 7 (五下)</option>
-                        <option value="Here We Go 8 (六上)">Here We Go 8 (六上)</option>
-                        <option value="Here We Go 9 (六下)">Here We Go 9 (六下)</option>
+                        <option value="Here We Go 5 (五上)">Here We Go 5 (五上)</option>
+                        <option value="Here We Go 6 (五下)">Here We Go 6 (五下)</option>
+                        <option value="Here We Go 7 (六上)">Here We Go 7 (六上)</option>
+                        <option value="Here We Go 8 (六下)">Here We Go 8 (六下)</option>
                     </select>
                 </div>
                 <div>
@@ -199,97 +199,97 @@
     <!-- JavaScript 核心邏輯 -->
     <script>
         const DEFAULT_RESOURCES = [
-            // ==================== Here We Go 6 (五上) ====================
-            { id: 'hw6-u1-1', book: 'Here We Go 6 (五上)', unit: 'U1', title: '聽音選字', url: 'https://wordwall.net/tc/resource/61030639?wwmethod=link', completed: false },
-            { id: 'hw6-u1-2', book: 'Here We Go 6 (五上)', unit: 'U1', title: '單字配對', url: 'https://wordwall.net/tc/resource/60234337?wwmethod=link', completed: false },
-            { id: 'hw6-u1-3', book: 'Here We Go 6 (五上)', unit: 'U1', title: '聽音排字', url: 'https://wordwall.net/tc/resource/60648383?wwmethod=link', completed: false },
-            { id: 'hw6-u1-4', book: 'Here We Go 6 (五上)', unit: 'U1', title: '聽懂意思', url: 'https://wordwall.net/tc/resource/60656592?wwmethod=link', completed: false },
-            { id: 'hw6-u1-5', book: 'Here We Go 6 (五上)', unit: 'U1', title: '天氣播報', url: 'https://wordwall.net/tc/resource/33457766?wwmethod=link', completed: false },
+            // ==================== Here We Go 5 (五上) ====================
+            { id: 'hw5-u1-1', book: 'Here We Go 5 (五上)', unit: 'U1', title: '聽音選字', url: 'https://wordwall.net/tc/resource/61030639?wwmethod=link', completed: false },
+            { id: 'hw5-u1-2', book: 'Here We Go 5 (五上)', unit: 'U1', title: '單字配對', url: 'https://wordwall.net/tc/resource/60234337?wwmethod=link', completed: false },
+            { id: 'hw5-u1-3', book: 'Here We Go 5 (五上)', unit: 'U1', title: '聽音排字', url: 'https://wordwall.net/tc/resource/60648383?wwmethod=link', completed: false },
+            { id: 'hw5-u1-4', book: 'Here We Go 5 (五上)', unit: 'U1', title: '聽懂意思', url: 'https://wordwall.net/tc/resource/60656592?wwmethod=link', completed: false },
+            { id: 'hw5-u1-5', book: 'Here We Go 5 (五上)', unit: 'U1', title: '天氣播報', url: 'https://wordwall.net/tc/resource/33457766?wwmethod=link', completed: false },
 
-            { id: 'hw6-u2-1', book: 'Here We Go 6 (五上)', unit: 'U2', title: '排列句子', url: 'https://wordwall.net/tc/resource/78918902?wwmethod=link', completed: false },
-            { id: 'hw6-u2-2', book: 'Here We Go 6 (五上)', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/85703324?wwmethod=link', completed: false },
-            { id: 'hw6-u2-3', book: 'Here We Go 6 (五上)', unit: 'U2', title: '眼明手快', url: 'https://wordwall.net/tc/resource/56066174?wwmethod=link', completed: false },
+            { id: 'hw5-u2-1', book: 'Here We Go 5 (五上)', unit: 'U2', title: '排列句子', url: 'https://wordwall.net/tc/resource/78918902?wwmethod=link', completed: false },
+            { id: 'hw5-u2-2', book: 'Here We Go 5 (五上)', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/85703324?wwmethod=link', completed: false },
+            { id: 'hw5-u2-3', book: 'Here We Go 5 (五上)', unit: 'U2', title: '眼明手快', url: 'https://wordwall.net/tc/resource/56066174?wwmethod=link', completed: false },
 
-            { id: 'hw6-u3-1', book: 'Here We Go 6 (五上)', unit: 'U3', title: '看圖排單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
-            { id: 'hw6-u3-2', book: 'Here We Go 6 (五上)', unit: 'U3', title: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
-            { id: 'hw6-u3-3', book: 'Here We Go 6 (五上)', unit: 'U3', title: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
-            { id: 'hw6-u3-4', book: 'Here We Go 6 (五上)', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/62348835?wwmethod=link', completed: false },
+            { id: 'hw5-u3-1', book: 'Here We Go 5 (五上)', unit: 'U3', title: '看圖排單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
+            { id: 'hw5-u3-2', book: 'Here We Go 5 (五上)', unit: 'U3', title: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
+            { id: 'hw5-u3-3', book: 'Here We Go 5 (五上)', unit: 'U3', title: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
+            { id: 'hw5-u3-4', book: 'Here We Go 5 (五上)', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/62348835?wwmethod=link', completed: false },
 
-            { id: 'hw6-u4-1', book: 'Here We Go 6 (五上)', unit: 'U4', title: '拼字練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
-            { id: 'hw6-u4-2', book: 'Here We Go 6 (五上)', unit: 'U4', title: '看圖重組單字', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false },
-            { id: 'hw6-u4-4', book: 'Here We Go 6 (五上)', unit: 'U4', title: '單字練習', url: 'https://wordwall.net/tc/resource/85702717?wwmethod=link', completed: false },
-            { id: 'hw6-u4-5', book: 'Here We Go 6 (五上)', unit: 'U4', title: '迷宮追逐', url: 'https://wordwall.net/tc/resource/65436159?wwmethod=link', completed: false },
-            { id: 'hw6-u4-6', book: 'Here We Go 6 (五上)', unit: 'U4', title: '問答遊戲', url: 'https://wordwall.net/tc/resource/65190817?wwmethod=link', completed: false },
+            { id: 'hw5-u4-1', book: 'Here We Go 5 (五上)', unit: 'U4', title: '拼字練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
+            { id: 'hw5-u4-2', book: 'Here We Go 5 (五上)', unit: 'U4', title: '看圖重組單字', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false },
+            { id: 'hw5-u4-4', book: 'Here We Go 5 (五上)', unit: 'U4', title: '單字練習', url: 'https://wordwall.net/tc/resource/85702717?wwmethod=link', completed: false },
+            { id: 'hw5-u4-5', book: 'Here We Go 5 (五上)', unit: 'U4', title: '迷宮追逐', url: 'https://wordwall.net/tc/resource/65436159?wwmethod=link', completed: false },
+            { id: 'hw5-u4-6', book: 'Here We Go 5 (五上)', unit: 'U4', title: '問答遊戲', url: 'https://wordwall.net/tc/resource/65190817?wwmethod=link', completed: false },
 
-            // ==================== Here We Go 7 (五下) ====================
-            { id: 'hw7-u1-1', book: 'Here We Go 7 (五下)', unit: 'U1', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/70577108?wwmethod=link', completed: false },
-            { id: 'hw7-u1-2', book: 'Here We Go 7 (五下)', unit: 'U1', title: '真假遊戲', url: 'https://wordwall.net/tc/resource/69041179?wwmethod=link', completed: false },
-            { id: 'hw7-u1-3', book: 'Here We Go 7 (五下)', unit: 'U1', title: '完成句子', url: 'https://wordwall.net/tc/resource/110357714?wwmethod=link', completed: false },
-            { id: 'hw7-u1-4', book: 'Here We Go 7 (五下)', unit: 'U1', title: '查找匹配', url: 'https://wordwall.net/tc/resource/68478871?wwmethod=link', completed: false },
-            { id: 'hw7-u1-5', book: 'Here We Go 7 (五下)', unit: 'U1', title: '單字練習', url: 'https://wordwall.net/tc/resource/63834923?wwmethod=link', completed: false },
+            // ==================== Here We Go 6 (五下) ====================
+            { id: 'hw6-u1-1', book: 'Here We Go 6 (五下)', unit: 'U1', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/70577108?wwmethod=link', completed: false },
+            { id: 'hw6-u1-2', book: 'Here We Go 6 (五下)', unit: 'U1', title: '真假遊戲', url: 'https://wordwall.net/tc/resource/69041179?wwmethod=link', completed: false },
+            { id: 'hw6-u1-3', book: 'Here We Go 6 (五下)', unit: 'U1', title: '完成句子', url: 'https://wordwall.net/tc/resource/110357714?wwmethod=link', completed: false },
+            { id: 'hw6-u1-4', book: 'Here We Go 6 (五下)', unit: 'U1', title: '查找匹配', url: 'https://wordwall.net/tc/resource/68478871?wwmethod=link', completed: false },
+            { id: 'hw6-u1-5', book: 'Here We Go 6 (五下)', unit: 'U1', title: '單字練習', url: 'https://wordwall.net/tc/resource/63834923?wwmethod=link', completed: false },
 
-            { id: 'hw7-u2-1', book: 'Here We Go 7 (五下)', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/86503537?wwmethod=link', completed: false },
+            { id: 'hw6-u2-1', book: 'Here We Go 6 (五下)', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/86503537?wwmethod=link', completed: false },
 
-            { id: 'hw7-u3-1', book: 'Here We Go 7 (五下)', unit: 'U3', title: '句子排列', url: 'https://wordwall.net/tc/resource/56272242?wwmethod=link', completed: false },
-            { id: 'hw7-u3-2', book: 'Here We Go 7 (五下)', unit: 'U3', title: '單字及句子', url: 'https://wordwall.net/tc/resource/72060829?wwmethod=link', completed: false },
-            { id: 'hw7-u3-3', book: 'Here We Go 7 (五下)', unit: 'U3', title: '單字遊戲', url: 'https://wordwall.net/tc/resource/72137417?wwmethod=link', completed: false },
-            { id: 'hw7-u3-4', book: 'Here We Go 7 (五下)', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/92144607?wwmethod=link', completed: false },
+            { id: 'hw6-u3-1', book: 'Here We Go 6 (五下)', unit: 'U3', title: '句子排列', url: 'https://wordwall.net/tc/resource/56272242?wwmethod=link', completed: false },
+            { id: 'hw6-u3-2', book: 'Here We Go 6 (五下)', unit: 'U3', title: '單字及句子', url: 'https://wordwall.net/tc/resource/72060829?wwmethod=link', completed: false },
+            { id: 'hw6-u3-3', book: 'Here We Go 6 (五下)', unit: 'U3', title: '單字遊戲', url: 'https://wordwall.net/tc/resource/72137417?wwmethod=link', completed: false },
+            { id: 'hw6-u3-4', book: 'Here We Go 6 (五下)', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/92144607?wwmethod=link', completed: false },
 
-            { id: 'hw7-u4-1', book: 'Here We Go 7 (五下)', unit: 'U4', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/86503738?wwmethod=link', completed: false },
-            { id: 'hw7-u4-2', book: 'Here We Go 7 (五下)', unit: 'U4', title: '句子練習', url: 'https://wordwall.net/tc/resource/73169555?wwmethod=link', completed: false },
+            { id: 'hw6-u4-1', book: 'Here We Go 6 (五下)', unit: 'U4', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/86503738?wwmethod=link', completed: false },
+            { id: 'hw6-u4-2', book: 'Here We Go 6 (五下)', unit: 'U4', title: '句子練習', url: 'https://wordwall.net/tc/resource/73169555?wwmethod=link', completed: false },
 
-            // ==================== Here We Go 8 (六上) ====================
-            { id: 'hw8-u1-1', book: 'Here We Go 8 (六上)', unit: 'U1', title: '單元練習 (1)', url: 'https://wordwall.net/tc/resource/77745777?wwmethod=link', completed: false },
-            { id: 'hw8-u1-2', book: 'Here We Go 8 (六上)', unit: 'U1', title: '單元練習 (2)', url: 'https://wordwall.net/tc/resource/77790815?wwmethod=link', completed: false },
-            { id: 'hw8-u1-3', book: 'Here We Go 8 (六上)', unit: 'U1', title: '單元練習 (3)', url: 'https://wordwall.net/tc/resource/77742595?wwmethod=link', completed: false },
-            { id: 'hw8-u1-4', book: 'Here We Go 8 (六上)', unit: 'U1', title: '單元練習 (4)', url: 'https://wordwall.net/tc/resource/74070780?wwmethod=link', completed: false },
-            { id: 'hw8-u1-5', book: 'Here We Go 8 (六上)', unit: 'U1', title: '單元練習 (5)', url: 'https://wordwall.net/tc/resource/77790136?wwmethod=link', completed: false },
+            // ==================== Here We Go 7 (六上) ====================
+            { id: 'hw7-u1-1', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (1)', url: 'https://wordwall.net/tc/resource/77745777?wwmethod=link', completed: false },
+            { id: 'hw7-u1-2', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (2)', url: 'https://wordwall.net/tc/resource/77790815?wwmethod=link', completed: false },
+            { id: 'hw7-u1-3', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (3)', url: 'https://wordwall.net/tc/resource/77742595?wwmethod=link', completed: false },
+            { id: 'hw7-u1-4', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (4)', url: 'https://wordwall.net/tc/resource/74070780?wwmethod=link', completed: false },
+            { id: 'hw7-u1-5', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (5)', url: 'https://wordwall.net/tc/resource/77790136?wwmethod=link', completed: false },
 
-            { id: 'hw8-u2-1', book: 'Here We Go 8 (六上)', unit: 'U2', title: '單元練習 (1)', url: 'https://wordwall.net/resource/78868848?wwmethod=link', completed: false },
-            { id: 'hw8-u2-2', book: 'Here We Go 8 (六上)', unit: 'U2', title: '單元練習 (2)', url: 'https://wordwall.net/resource/78868978?wwmethod=link', completed: false },
-            { id: 'hw8-u2-3', book: 'Here We Go 8 (六上)', unit: 'U2', title: '單元練習 (3)', url: 'https://wordwall.net/resource/78868626?wwmethod=link', completed: false },
-            { id: 'hw8-u2-4', book: 'Here We Go 8 (六上)', unit: 'U2', title: '單元練習 (4)', url: 'https://wordwall.net/resource/78868890?wwmethod=link', completed: false },
-            { id: 'hw8-u2-5', book: 'Here We Go 8 (六上)', unit: 'U2', title: '單元練習 (5)', url: 'https://wordwall.net/resource/78869400?wwmethod=link', completed: false },
+            { id: 'hw7-u2-1', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (1)', url: 'https://wordwall.net/resource/78868848?wwmethod=link', completed: false },
+            { id: 'hw7-u2-2', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (2)', url: 'https://wordwall.net/resource/78868978?wwmethod=link', completed: false },
+            { id: 'hw7-u2-3', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (3)', url: 'https://wordwall.net/resource/78868626?wwmethod=link', completed: false },
+            { id: 'hw7-u2-4', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (4)', url: 'https://wordwall.net/resource/78868890?wwmethod=link', completed: false },
+            { id: 'hw7-u2-5', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (5)', url: 'https://wordwall.net/resource/78869400?wwmethod=link', completed: false },
 
-            { id: 'hw8-u3-1', book: 'Here We Go 8 (六上)', unit: 'U3', title: '聽音選圖片', url: 'https://wordwall.net/resource/81177939?wwmethod=link', completed: false },
-            { id: 'hw8-u3-2', book: 'Here We Go 8 (六上)', unit: 'U3', title: '聽音選單字', url: 'https://wordwall.net/resource/81177775?wwmethod=link', completed: false },
-            { id: 'hw8-u3-3', book: 'Here We Go 8 (六上)', unit: 'U3', title: '圖片與單字', url: 'https://wordwall.net/resource/81178072?wwmethod=link', completed: false },
-            { id: 'hw8-u3-4', book: 'Here We Go 8 (六上)', unit: 'U3', title: '聽音拼單字', url: 'https://wordwall.net/resource/81178161?wwmethod=link', completed: false },
+            { id: 'hw7-u3-1', book: 'Here We Go 7 (六上)', unit: 'U3', title: '聽音選圖片', url: 'https://wordwall.net/resource/81177939?wwmethod=link', completed: false },
+            { id: 'hw7-u3-2', book: 'Here We Go 7 (六上)', unit: 'U3', title: '聽音選單字', url: 'https://wordwall.net/resource/81177775?wwmethod=link', completed: false },
+            { id: 'hw7-u3-3', book: 'Here We Go 7 (六上)', unit: 'U3', title: '圖片與單字', url: 'https://wordwall.net/resource/81178072?wwmethod=link', completed: false },
+            { id: 'hw7-u3-4', book: 'Here We Go 7 (六上)', unit: 'U3', title: '聽音拼單字', url: 'https://wordwall.net/resource/81178161?wwmethod=link', completed: false },
 
-            { id: 'hw8-u4-1', book: 'Here We Go 8 (六上)', unit: 'U4', title: '拼出單字', url: 'https://wordwall.net/resource/81988103/here-we-go-7-unit4-voc?wwmethod=link', completed: false },
-            { id: 'hw8-u4-2', book: 'Here We Go 8 (六上)', unit: 'U4', title: '辨音達人', url: 'https://wordwall.net/tc/resource/73170412?wwmethod=link', completed: false },
-            { id: 'hw8-u4-3', book: 'Here We Go 8 (六上)', unit: 'U4', title: '眼明手快', url: 'https://wordwall.net/tc/resource/73167042?wwmethod=link', completed: false },
-            { id: 'hw8-u4-4', book: 'Here We Go 8 (六上)', unit: 'U4', title: '真偽鑑定團', url: 'https://wordwall.net/tc/resource/73167373?wwmethod=link', completed: false },
+            { id: 'hw7-u4-1', book: 'Here We Go 7 (六上)', unit: 'U4', title: '拼出單字', url: 'https://wordwall.net/resource/81988103/here-we-go-7-unit4-voc?wwmethod=link', completed: false },
+            { id: 'hw7-u4-2', book: 'Here We Go 7 (六上)', unit: 'U4', title: '辨音達人', url: 'https://wordwall.net/tc/resource/73170412?wwmethod=link', completed: false },
+            { id: 'hw7-u4-3', book: 'Here We Go 7 (六上)', unit: 'U4', title: '眼明手快', url: 'https://wordwall.net/tc/resource/73167042?wwmethod=link', completed: false },
+            { id: 'hw7-u4-4', book: 'Here We Go 7 (六上)', unit: 'U4', title: '真偽鑑定團', url: 'https://wordwall.net/tc/resource/73167373?wwmethod=link', completed: false },
 
-            // ==================== Here We Go 9 (六下) ====================
-            { id: 'hw9-u1-1', book: 'Here We Go 9 (六下)', unit: 'U1', title: '拼字', url: 'https://wordwall.net/tc/resource/108835431?wwmethod=link', completed: false },
-            { id: 'hw9-u1-2', book: 'Here We Go 9 (六下)', unit: 'U1', title: '中英配對', url: 'https://wordwall.net/resource/32609504?wwmethod=link', completed: false },
-            { id: 'hw9-u1-3', book: 'Here We Go 9 (六下)', unit: 'U1', title: '看圖找英文單字', url: 'https://wordwall.net/resource/81044189?wwmethod=link', completed: false },
-            { id: 'hw9-u1-4', book: 'Here We Go 9 (六下)', unit: 'U1', title: '句型建築師', url: 'https://wordwall.net/resource/81045463?wwmethod=link', completed: false },
-            { id: 'hw9-u1-5', book: 'Here We Go 9 (六下)', unit: 'U1', title: '句型練習', url: 'https://wordwall.net/resource/82454801?wwmethod=link', completed: false },
+            // ==================== Here We Go 8 (六下) ====================
+            { id: 'hw8-u1-1', book: 'Here We Go 8 (六下)', unit: 'U1', title: '拼字', url: 'https://wordwall.net/tc/resource/108835431?wwmethod=link', completed: false },
+            { id: 'hw8-u1-2', book: 'Here We Go 8 (六下)', unit: 'U1', title: '中英配對', url: 'https://wordwall.net/resource/32609504?wwmethod=link', completed: false },
+            { id: 'hw8-u1-3', book: 'Here We Go 8 (六下)', unit: 'U1', title: '看圖找英文單字', url: 'https://wordwall.net/resource/81044189?wwmethod=link', completed: false },
+            { id: 'hw8-u1-4', book: 'Here We Go 8 (六下)', unit: 'U1', title: '句型建築師', url: 'https://wordwall.net/resource/81045463?wwmethod=link', completed: false },
+            { id: 'hw8-u1-5', book: 'Here We Go 8 (六下)', unit: 'U1', title: '句型練習', url: 'https://wordwall.net/resource/82454801?wwmethod=link', completed: false },
 
-            { id: 'hw9-u2-1', book: 'Here We Go 9 (六下)', unit: 'U2', title: '拼字', url: 'https://wordwall.net/tc/resource/89554438?wwmethod=link', completed: false },
-            { id: 'hw9-u2-2', book: 'Here We Go 9 (六下)', unit: 'U2', title: '看圖找英文片語', url: 'https://wordwall.net/resource/82459757?wwmethod=link', completed: false },
-            { id: 'hw9-u2-3', book: 'Here We Go 9 (六下)', unit: 'U2', title: '圖文相符鑑定', url: 'https://wordwall.net/resource/82456857?wwmethod=link', completed: false },
-            { id: 'hw9-u2-4', book: 'Here We Go 9 (六下)', unit: 'U2', title: '發音魔法師', url: 'https://wordwall.net/resource/82462195?wwmethod=link', completed: false },
+            { id: 'hw8-u2-1', book: 'Here We Go 8 (六下)', unit: 'U2', title: '拼字', url: 'https://wordwall.net/tc/resource/89554438?wwmethod=link', completed: false },
+            { id: 'hw8-u2-2', book: 'Here We Go 8 (六下)', unit: 'U2', title: '看圖找英文片語', url: 'https://wordwall.net/resource/82459757?wwmethod=link', completed: false },
+            { id: 'hw8-u2-3', book: 'Here We Go 8 (六下)', unit: 'U2', title: '圖文相符鑑定', url: 'https://wordwall.net/resource/82456857?wwmethod=link', completed: false },
+            { id: 'hw8-u2-4', book: 'Here We Go 8 (六下)', unit: 'U2', title: '發音魔法師', url: 'https://wordwall.net/resource/82462195?wwmethod=link', completed: false },
 
-            { id: 'hw9-u3-1', book: 'Here We Go 9 (六下)', unit: 'U3', title: '拼字', url: 'https://wordwall.net/resource/82465564?wwmethod=link', completed: false },
-            { id: 'hw9-u3-2', book: 'Here We Go 9 (六下)', unit: 'U3', title: '搶答大賽', url: 'https://wordwall.net/resource/82472344?wwmethod=link', completed: false },
-            { id: 'hw9-u3-3', book: 'Here We Go 9 (六下)', unit: 'U3', title: '單字鑑定', url: 'https://wordwall.net/resource/82465072?wwmethod=link', completed: false },
+            { id: 'hw8-u3-1', book: 'Here We Go 8 (六下)', unit: 'U3', title: '拼字', url: 'https://wordwall.net/resource/82465564?wwmethod=link', completed: false },
+            { id: 'hw8-u3-2', book: 'Here We Go 8 (六下)', unit: 'U3', title: '搶答大賽', url: 'https://wordwall.net/resource/82472344?wwmethod=link', completed: false },
+            { id: 'hw8-u3-3', book: 'Here We Go 8 (六下)', unit: 'U3', title: '單字鑑定', url: 'https://wordwall.net/resource/82465072?wwmethod=link', completed: false },
 
-            { id: 'hw9-u4-1', book: 'Here We Go 9 (六下)', unit: 'U4', title: '拼音達人', url: 'https://wordwall.net/resource/82616817?wwmethod=link', completed: false },
-            { id: 'hw9-u4-2', book: 'Here We Go 9 (六下)', unit: 'U4', title: '拼字挑戰', url: 'https://wordwall.net/resource/82607288?wwmethod=link', completed: false },
-            { id: 'hw9-u4-3', book: 'Here We Go 9 (六下)', unit: 'U4', title: '眼明手快', url: 'https://wordwall.net/resource/82474429?wwmethod=link', completed: false },
-            { id: 'hw9-u4-4', book: 'Here We Go 9 (六下)', unit: 'U4', title: '解讀密碼', url: 'https://wordwall.net/resource/82614426?wwmethod=link', completed: false },
-            { id: 'hw9-u4-5', book: 'Here We Go 9 (六下)', unit: 'U4', title: '句型解密', url: 'https://wordwall.net/resource/81048018?wwmethod=link', completed: false },
+            { id: 'hw8-u4-1', book: 'Here We Go 8 (六下)', unit: 'U4', title: '拼音達人', url: 'https://wordwall.net/resource/82616817?wwmethod=link', completed: false },
+            { id: 'hw8-u4-2', book: 'Here We Go 8 (六下)', unit: 'U4', title: '拼字挑戰', url: 'https://wordwall.net/resource/82607288?wwmethod=link', completed: false },
+            { id: 'hw8-u4-3', book: 'Here We Go 8 (六下)', unit: 'U4', title: '眼明手快', url: 'https://wordwall.net/resource/82474429?wwmethod=link', completed: false },
+            { id: 'hw8-u4-4', book: 'Here We Go 8 (六下)', unit: 'U4', title: '解讀密碼', url: 'https://wordwall.net/resource/82614426?wwmethod=link', completed: false },
+            { id: 'hw8-u4-5', book: 'Here We Go 8 (六下)', unit: 'U4', title: '句型解密', url: 'https://wordwall.net/resource/81048018?wwmethod=link', completed: false },
 
-            { id: 'hw9-rev2-1', book: 'Here We Go 9 (六下)', unit: 'REVIEW2', title: '配對王', url: 'https://wordwall.net/resource/82618427?wwmethod=link', completed: false }
+            { id: 'hw8-rev2-1', book: 'Here We Go 8 (六下)', unit: 'REVIEW2', title: '配對王', url: 'https://wordwall.net/resource/82618427?wwmethod=link', completed: false }
         ];
 
-        const STORAGE_KEY = 'wordwall_here_we_go_multi_v2';
+        const STORAGE_KEY = 'wordwall_here_we_go_multi_v3';
 
         let resources = [];
-        let currentActiveBook = 'Here We Go 6 (五上)';
+        let currentActiveBook = 'Here We Go 5 (五上)';
         let currentActiveUnit = 'ALL';
 
         window.addEventListener('DOMContentLoaded', () => {
