@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Here We Go 5 - Wordwall 英語學習資源庫</title>
+    <title>Here We Go - Wordwall 英語學習資源庫</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome 圖示 -->
@@ -47,7 +47,7 @@
                     <i class="fa-solid fa-gamepad"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl sm:text-3xl font-black tracking-wide font-fredoka">Here We Go 5</h1>
+                    <h1 class="text-2xl sm:text-3xl font-black tracking-wide font-fredoka">Here We Go</h1>
                     <p class="text-xs sm:text-sm text-indigo-100 font-medium">Wordwall 互動練習資源庫</p>
                 </div>
             </div>
@@ -67,6 +67,11 @@
 
     <!-- 主要內容區 -->
     <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex-1 w-full">
+
+        <!-- 冊別切換導覽列 -->
+        <div class="flex flex-wrap gap-3 mb-6" id="bookTabs">
+            <!-- 由 JS 動態產生冊別切換按鈕 -->
+        </div>
 
         <!-- 搜尋與單元篩選區 -->
         <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 mb-6">
@@ -105,7 +110,7 @@
 
     <!-- 頁尾 -->
     <footer class="bg-slate-800 text-slate-400 py-6 text-center text-xs sm:text-sm mt-8 border-t border-slate-700">
-        <p>Here We Go 5 Wordwall Practice Hub &copy; 2026</p>
+        <p>Here We Go Wordwall Practice Hub &copy; 2026</p>
     </footer>
 
     <!-- Modal: 新增練習資源 -->
@@ -122,12 +127,20 @@
             </div>
             <form onsubmit="handleAddResource(event)" class="p-6 space-y-4">
                 <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">所屬冊別 *</label>
+                    <select id="addBook" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white">
+                        <option value="Here We Go 6 (五下)">Here We Go 6 (五下)</option>
+                        <option value="Here We Go 7 (六上)">Here We Go 7 (六上)</option>
+                        <option value="Here We Go 8 (六下)">Here We Go 8 (六下)</option>
+                    </select>
+                </div>
+                <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">所屬單元 *</label>
-                    <input type="text" id="addUnit" placeholder="例：U5 或 Unit 5" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                    <input type="text" id="addUnit" placeholder="例：U1 或 Unit 1" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">練習標題 *</label>
-                    <input type="text" id="addTitle" placeholder="例：聽音選字" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                    <input type="text" id="addTitle" placeholder="例：拼字遊戲" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Wordwall 網址 *</label>
@@ -172,7 +185,7 @@
                 </div>
 
                 <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
-                    <h4 class="font-bold text-rose-700 text-sm mb-1">強制重設預設資料 (包含最新 U1-U4)</h4>
+                    <h4 class="font-bold text-rose-700 text-sm mb-1">強制重設預設資料</h4>
                     <p class="text-xs text-rose-600/80 mb-3">若需要重設所有練習項目，點擊此按鈕即可還原。</p>
                     <button onclick="resetToDefaultData()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center gap-2">
                         <i class="fa-solid fa-rotate-left"></i> 重設預設資料
@@ -185,39 +198,80 @@
     <!-- JavaScript 核心邏輯 -->
     <script>
         const DEFAULT_RESOURCES = [
-            // Unit 1
-            { id: 'u1-1', unit: 'U1', title: '聽音選字', url: 'https://wordwall.net/tc/resource/61030639?wwmethod=link', completed: false },
-            { id: 'u1-2', unit: 'U1', title: '單字配對', url: 'https://wordwall.net/tc/resource/60234337?wwmethod=link', completed: false },
-            { id: 'u1-3', unit: 'U1', title: '聽音排字', url: 'https://wordwall.net/tc/resource/60648383?wwmethod=link', completed: false },
-            { id: 'u1-4', unit: 'U1', title: '聽懂意思', url: 'https://wordwall.net/tc/resource/60656592?wwmethod=link', completed: false },
-            { id: 'u1-5', unit: 'U1', title: '天氣播報', url: 'https://wordwall.net/tc/resource/33457766?wwmethod=link', completed: false },
+            // ==================== Here We Go 6 (五下) ====================
+            { id: 'hw6-u1-1', book: 'Here We Go 6 (五下)', unit: 'U1', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/70577108?wwmethod=link', completed: false },
+            { id: 'hw6-u1-2', book: 'Here We Go 6 (五下)', unit: 'U1', title: '真假遊戲', url: 'https://wordwall.net/tc/resource/69041179?wwmethod=link', completed: false },
+            { id: 'hw6-u1-3', book: 'Here We Go 6 (五下)', unit: 'U1', title: '完成句子', url: 'https://wordwall.net/tc/resource/110357714?wwmethod=link', completed: false },
+            { id: 'hw6-u1-4', book: 'Here We Go 6 (五下)', unit: 'U1', title: '查找匹配', url: 'https://wordwall.net/tc/resource/68478871?wwmethod=link', completed: false },
+            { id: 'hw6-u1-5', book: 'Here We Go 6 (五下)', unit: 'U1', title: '單字練習', url: 'https://wordwall.net/tc/resource/63834923?wwmethod=link', completed: false },
 
-            // Unit 2
-            { id: 'u2-1', unit: 'U2', title: '排列句子', url: 'https://wordwall.net/tc/resource/78918902?wwmethod=link', completed: false },
-            { id: 'u2-2', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/85703324?wwmethod=link', completed: false },
-            { id: 'u2-3', unit: 'U2', title: '眼明手快', url: 'https://wordwall.net/tc/resource/56066174?wwmethod=link', completed: false },
+            { id: 'hw6-u2-1', book: 'Here We Go 6 (五下)', unit: 'U2', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/86503537?wwmethod=link', completed: false },
 
-            // Unit 3
-            { id: 'u3-1', unit: 'U3', title: '看圖排單字', url: 'https://wordwall.net/tc/resource/62947016?wwmethod=link', completed: false },
-            { id: 'u3-2', unit: 'U3', title: '句型重組', url: 'https://wordwall.net/tc/resource/57669292?wwmethod=link', completed: false },
-            { id: 'u3-3', unit: 'U3', title: '句型練習', url: 'https://wordwall.net/tc/resource/64389402?wwmethod=link', completed: false },
-            { id: 'u3-4', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/62348835?wwmethod=link', completed: false },
+            { id: 'hw6-u3-1', book: 'Here We Go 6 (五下)', unit: 'U3', title: '句子排列', url: 'https://wordwall.net/tc/resource/56272242?wwmethod=link', completed: false },
+            { id: 'hw6-u3-2', book: 'Here We Go 6 (五下)', unit: 'U3', title: '單字及句子', url: 'https://wordwall.net/tc/resource/72060829?wwmethod=link', completed: false },
+            { id: 'hw6-u3-3', book: 'Here We Go 6 (五下)', unit: 'U3', title: '單字遊戲', url: 'https://wordwall.net/tc/resource/72137417?wwmethod=link', completed: false },
+            { id: 'hw6-u3-4', book: 'Here We Go 6 (五下)', unit: 'U3', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/92144607?wwmethod=link', completed: false },
 
-            // Unit 4
-            { id: 'u4-1', unit: 'U4', title: '拼字練習', url: 'https://wordwall.net/tc/resource/57207543?wwmethod=link', completed: false },
-            { id: 'u4-2', unit: 'U4', title: '看圖重組單字', url: 'https://wordwall.net/tc/resource/64957091?wwmethod=link', completed: false },
-            { id: 'u4-3', unit: 'U4', title: '單字練習', url: 'https://wordwall.net/tc/resource/85702717?wwmethod=link', completed: false },
-            { id: 'u4-4', unit: 'U4', title: '迷宮追逐', url: 'https://wordwall.net/tc/resource/65436159?wwmethod=link', completed: false },
-            { id: 'u4-5', unit: 'U4', title: '問答遊戲', url: 'https://wordwall.net/tc/resource/65190817?wwmethod=link', completed: false }
+            { id: 'hw6-u4-1', book: 'Here We Go 6 (五下)', unit: 'U4', title: '拼字遊戲', url: 'https://wordwall.net/tc/resource/86503738?wwmethod=link', completed: false },
+            { id: 'hw6-u4-2', book: 'Here We Go 6 (五下)', unit: 'U4', title: '句子練習', url: 'https://wordwall.net/tc/resource/73169555?wwmethod=link', completed: false },
+
+            // ==================== Here We Go 7 (六上) ====================
+            { id: 'hw7-u1-1', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (1)', url: 'https://wordwall.net/tc/resource/77745777?wwmethod=link', completed: false },
+            { id: 'hw7-u1-2', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (2)', url: 'https://wordwall.net/tc/resource/77790815?wwmethod=link', completed: false },
+            { id: 'hw7-u1-3', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (3)', url: 'https://wordwall.net/tc/resource/77742595?wwmethod=link', completed: false },
+            { id: 'hw7-u1-4', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (4)', url: 'https://wordwall.net/tc/resource/74070780?wwmethod=link', completed: false },
+            { id: 'hw7-u1-5', book: 'Here We Go 7 (六上)', unit: 'U1', title: '單元練習 (5)', url: 'https://wordwall.net/tc/resource/77790136?wwmethod=link', completed: false },
+
+            { id: 'hw7-u2-1', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (1)', url: 'https://wordwall.net/resource/78868848?wwmethod=link', completed: false },
+            { id: 'hw7-u2-2', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (2)', url: 'https://wordwall.net/resource/78868978?wwmethod=link', completed: false },
+            { id: 'hw7-u2-3', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (3)', url: 'https://wordwall.net/resource/78868626?wwmethod=link', completed: false },
+            { id: 'hw7-u2-4', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (4)', url: 'https://wordwall.net/resource/78868890?wwmethod=link', completed: false },
+            { id: 'hw7-u2-5', book: 'Here We Go 7 (六上)', unit: 'U2', title: '單元練習 (5)', url: 'https://wordwall.net/resource/78869400?wwmethod=link', completed: false },
+
+            { id: 'hw7-u3-1', book: 'Here We Go 7 (六上)', unit: 'U3', title: '聽音選圖片', url: 'https://wordwall.net/resource/81177939?wwmethod=link', completed: false },
+            { id: 'hw7-u3-2', book: 'Here We Go 7 (六上)', unit: 'U3', title: '聽音選單字', url: 'https://wordwall.net/resource/81177775?wwmethod=link', completed: false },
+            { id: 'hw7-u3-3', book: 'Here We Go 7 (六上)', unit: 'U3', title: '圖片與單字', url: 'https://wordwall.net/resource/81178072?wwmethod=link', completed: false },
+            { id: 'hw7-u3-4', book: 'Here We Go 7 (六上)', unit: 'U3', title: '聽音拼單字', url: 'https://wordwall.net/resource/81178161?wwmethod=link', completed: false },
+
+            { id: 'hw7-u4-1', book: 'Here We Go 7 (六上)', unit: 'U4', title: '拼出單字', url: 'https://wordwall.net/resource/81988103/here-we-go-7-unit4-voc?wwmethod=link', completed: false },
+            { id: 'hw7-u4-2', book: 'Here We Go 7 (六上)', unit: 'U4', title: '辨音達人', url: 'https://wordwall.net/tc/resource/73170412?wwmethod=link', completed: false },
+            { id: 'hw7-u4-3', book: 'Here We Go 7 (六上)', unit: 'U4', title: '眼明手快', url: 'https://wordwall.net/tc/resource/73167042?wwmethod=link', completed: false },
+            { id: 'hw7-u4-4', book: 'Here We Go 7 (六上)', unit: 'U4', title: '真偽鑑定團', url: 'https://wordwall.net/tc/resource/73167373?wwmethod=link', completed: false },
+
+            // ==================== Here We Go 8 (六下) ====================
+            { id: 'hw8-u1-1', book: 'Here We Go 8 (六下)', unit: 'U1', title: '拼字', url: 'https://wordwall.net/tc/resource/108835431?wwmethod=link', completed: false },
+            { id: 'hw8-u1-2', book: 'Here We Go 8 (六下)', unit: 'U1', title: '中英配對', url: 'https://wordwall.net/resource/32609504?wwmethod=link', completed: false },
+            { id: 'hw8-u1-3', book: 'Here We Go 8 (六下)', unit: 'U1', title: '看圖找英文單字', url: 'https://wordwall.net/resource/81044189?wwmethod=link', completed: false },
+            { id: 'hw8-u1-4', book: 'Here We Go 8 (六下)', unit: 'U1', title: '句型建築師', url: 'https://wordwall.net/resource/81045463?wwmethod=link', completed: false },
+            { id: 'hw8-u1-5', book: 'Here We Go 8 (六下)', unit: 'U1', title: '句型練習', url: 'https://wordwall.net/resource/82454801?wwmethod=link', completed: false },
+
+            { id: 'hw8-u2-1', book: 'Here We Go 8 (六下)', unit: 'U2', title: '拼字', url: 'https://wordwall.net/tc/resource/89554438?wwmethod=link', completed: false },
+            { id: 'hw8-u2-2', book: 'Here We Go 8 (六下)', unit: 'U2', title: '看圖找英文片語', url: 'https://wordwall.net/resource/82459757?wwmethod=link', completed: false },
+            { id: 'hw8-u2-3', book: 'Here We Go 8 (六下)', unit: 'U2', title: '圖文相符鑑定', url: 'https://wordwall.net/resource/82456857?wwmethod=link', completed: false },
+            { id: 'hw8-u2-4', book: 'Here We Go 8 (六下)', unit: 'U2', title: '發音魔法師', url: 'https://wordwall.net/resource/82462195?wwmethod=link', completed: false },
+
+            { id: 'hw8-u3-1', book: 'Here We Go 8 (六下)', unit: 'U3', title: '拼字', url: 'https://wordwall.net/resource/82465564?wwmethod=link', completed: false },
+            { id: 'hw8-u3-2', book: 'Here We Go 8 (六下)', unit: 'U3', title: '搶答大賽', url: 'https://wordwall.net/resource/82472344?wwmethod=link', completed: false },
+            { id: 'hw8-u3-3', book: 'Here We Go 8 (六下)', unit: 'U3', title: '單字鑑定', url: 'https://wordwall.net/resource/82465072?wwmethod=link', completed: false },
+
+            { id: 'hw8-u4-1', book: 'Here We Go 8 (六下)', unit: 'U4', title: '拼音達人', url: 'https://wordwall.net/resource/82616817?wwmethod=link', completed: false },
+            { id: 'hw8-u4-2', book: 'Here We Go 8 (六下)', unit: 'U4', title: '拼字挑戰', url: 'https://wordwall.net/resource/82607288?wwmethod=link', completed: false },
+            { id: 'hw8-u4-3', book: 'Here We Go 8 (六下)', unit: 'U4', title: '眼明手快', url: 'https://wordwall.net/resource/82474429?wwmethod=link', completed: false },
+            { id: 'hw8-u4-4', book: 'Here We Go 8 (六下)', unit: 'U4', title: '解讀密碼', url: 'https://wordwall.net/resource/82614426?wwmethod=link', completed: false },
+            { id: 'hw8-u4-5', book: 'Here We Go 8 (六下)', unit: 'U4', title: '句型解密', url: 'https://wordwall.net/resource/81048018?wwmethod=link', completed: false },
+
+            { id: 'hw8-rev2-1', book: 'Here We Go 8 (六下)', unit: 'REVIEW2', title: '配對王', url: 'https://wordwall.net/resource/82618427?wwmethod=link', completed: false }
         ];
 
-        const STORAGE_KEY = 'wordwall_here_we_go_5_v9';
+        const STORAGE_KEY = 'wordwall_here_we_go_multi_v1';
 
         let resources = [];
+        let currentActiveBook = 'Here We Go 6 (五下)';
         let currentActiveUnit = 'ALL';
 
         window.addEventListener('DOMContentLoaded', () => {
             loadData();
+            renderBookTabs();
             renderUnitTabs();
             renderCards();
         });
@@ -255,23 +309,56 @@
         }
 
         function resetToDefaultData() {
-            if (confirm('確定要還原為包含最新預設資料嗎？')) {
+            if (confirm('確定要還原為最新預設資料嗎？')) {
                 resources = JSON.parse(JSON.stringify(DEFAULT_RESOURCES));
                 saveData();
+                renderBookTabs();
                 renderUnitTabs();
                 renderCards();
                 closeModal('backupModal');
             }
         }
 
-        function getUniqueUnits() {
-            const units = Array.from(new Set(resources.map(r => r.unit)));
+        // 取得所有可用冊別
+        function getUniqueBooks() {
+            return Array.from(new Set(resources.map(r => r.book)));
+        }
+
+        // 渲染冊別切換按鈕
+        function renderBookTabs() {
+            const bookTabsContainer = document.getElementById('bookTabs');
+            const books = getUniqueBooks();
+
+            bookTabsContainer.innerHTML = books.map(book => {
+                const isActive = currentActiveBook === book;
+                return `
+                    <button onclick="switchBook('${book}')" class="px-5 py-2.5 rounded-2xl font-bold text-sm sm:text-base transition shadow-sm ${isActive ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md scale-105' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'}">
+                        <i class="fa-solid fa-book-open mr-2"></i>${book}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // 切換冊別
+        function switchBook(book) {
+            currentActiveBook = book;
+            currentActiveUnit = 'ALL'; // 切換冊別時重置單元篩選
+            renderBookTabs();
+            renderUnitTabs();
+            renderCards();
+        }
+
+        // 取得當前冊別下的所有單元
+        function getUniqueUnitsForCurrentBook() {
+            const bookItems = resources.filter(r => r.book === currentActiveBook);
+            const units = Array.from(new Set(bookItems.map(r => r.unit)));
             return units.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
         }
 
+        // 渲染單元頁籤
         function renderUnitTabs() {
             const tabsContainer = document.getElementById('unitTabs');
-            const units = getUniqueUnits();
+            const units = getUniqueUnitsForCurrentBook();
 
             let html = `
                 <button onclick="switchUnit('ALL')" class="px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition ${currentActiveUnit === 'ALL' ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
@@ -302,16 +389,18 @@
             const emptyState = document.getElementById('emptyState');
             const searchKeyword = document.getElementById('searchInput').value.trim().toLowerCase();
 
-            const allUnits = getUniqueUnits();
+            // 僅篩選當前冊別
+            const bookItems = resources.filter(r => r.book === currentActiveBook);
+            const allUnits = Array.from(new Set(bookItems.map(r => r.unit))).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
             const filteredUnits = allUnits.filter(unit => currentActiveUnit === 'ALL' || unit === currentActiveUnit);
 
             let hasAnyContent = false;
             let sectionsHtml = '';
 
             filteredUnits.forEach(unit => {
-                const unitItems = resources.filter(item => {
+                const unitItems = bookItems.filter(item => {
                     const matchUnit = item.unit === unit;
-                    const matchSearch = item.title.toLowerCase().includes(searchKeyword) || item.unit.toLowerCase().includes(searchKeyword);
+                    const matchSearch = item.title.toLowerCase().includes(searchKeyword) || item.unit.toLowerCase().includes(searchKeyword) || item.book.toLowerCase().includes(searchKeyword);
                     return matchUnit && matchSearch;
                 });
 
@@ -379,13 +468,14 @@
         }
 
         function getUnitDisplayName(unit) {
-            switch(unit.toUpperCase()) {
-                case 'U1': return 'Unit 1';
-                case 'U2': return 'Unit 2';
-                case 'U3': return 'Unit 3';
-                case 'U4': return 'Unit 4';
-                default: return unit;
+            const upper = unit.toUpperCase();
+            if (upper.startsWith('U')) {
+                return 'Unit ' + upper.replace('U', '');
             }
+            if (upper.startsWith('REVIEW')) {
+                return 'Review ' + upper.replace('REVIEW', '');
+            }
+            return unit;
         }
 
         function updateCounters() {
@@ -404,14 +494,16 @@
 
         function handleAddResource(e) {
             e.preventDefault();
+            const book = document.getElementById('addBook').value;
             const unit = document.getElementById('addUnit').value.trim();
             const title = document.getElementById('addTitle').value.trim();
             const url = document.getElementById('addUrl').value.trim();
 
-            if (!unit || !title || !url) return;
+            if (!book || !unit || !title || !url) return;
 
             const newItem = {
                 id: 'custom-' + Date.now(),
+                book: book,
                 unit: unit.toUpperCase(),
                 title: title,
                 url: url,
@@ -420,6 +512,8 @@
 
             resources.unshift(newItem);
             saveData();
+            currentActiveBook = book; // 自動切換至新增的冊別
+            renderBookTabs();
             renderUnitTabs();
             renderCards();
 
@@ -445,7 +539,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resources, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `HereWeGo5_Wordwall_Backup_${new Date().toISOString().slice(0,10)}.json`);
+            downloadAnchor.setAttribute("download", `HereWeGo_Wordwall_Backup_${new Date().toISOString().slice(0,10)}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
@@ -462,6 +556,7 @@
                     if (Array.isArray(imported)) {
                         resources = imported;
                         saveData();
+                        renderBookTabs();
                         renderUnitTabs();
                         renderCards();
                         alert('資料匯入成功！');
